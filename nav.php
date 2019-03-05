@@ -27,9 +27,9 @@
         </button> -->
         <div class="collapse navbar-collapse pull-right" id="navigation">
             <ul class="nav navbar-nav">
-                <li class="nav-item "><a class="navbar-link" href="/home.php">Calendar View</a></li>
-                <li class="nav-item "><a class="navbar-link" href="/mealIdeas.php">Meal Ideas</a></li>
-                <li class="nav-item "><a class="navbar-link" href="/adminLogin.php">Admin</a></li>
+                <li class="nav-item "><a class="navbar-link" href="home.php">Calendar View</a></li>
+                <li class="nav-item "><a class="navbar-link" href="mealIdeas.php">Meal Ideas</a></li>
+                <li class="nav-item "><a class="navbar-link" href="adminLogin.php">Admin</a></li>
             </ul>
         </div>
     </nav>
