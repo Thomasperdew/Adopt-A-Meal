@@ -9,7 +9,7 @@
 
 <body>
     <?php include('nav.php'); ?>
-    <form method="post" action="loginhandler.php" enctype="multipart/form-data">
+    <form method="post" action="loginHandler.php" enctype="multipart/form-data">
     <h2> ADMIN LOGIN </h2>
     <div id="login">
         <label for="username"><b>Username</b></label><br>
