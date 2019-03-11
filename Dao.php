@@ -141,4 +141,15 @@ class Dao {
         $q->execute();
         return $q->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function mealIdea ($mealName, $description, $ingredients, $instructions, $source, $yourName, $email)
+    {
+        $conn = $this->getConnection();
+        $saveQuery ="INSERT INTO user(username, password, email)VALUES(:username, :password, :email)";
+        $q = $conn->prepare($saveQuery);
+        $q->bindParam(":username", $username);
+        $q->bindParam(":password", $passhash);
+        $q->bindParam(":email", $email);
+        $q->execute();
+    }
 }

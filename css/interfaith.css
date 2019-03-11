@@ -163,7 +163,7 @@ li {
     box-sizing: border-box;
 }
 .jumbotron{
-    min-width:768 px;
+    min-width:768px;
     background-color:black;
     /* padding-top:48px;
     padding-bottom: 48px; */
@@ -232,7 +232,7 @@ li {
 }
 .calendar:after {
     clear: both;
-} */
+}
 .list-group-container > button {
     position: absolute;
     top: 32px;
