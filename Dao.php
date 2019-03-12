@@ -1,6 +1,4 @@
 <?php
-require_once 'KLogger.php';
-date_default_timezone_set('America/Denver');
 
 class Dao {
 
@@ -8,11 +6,6 @@ class Dao {
     private $db = "tfdesign_adoptamealdev";
     private $user = "tfdesign_218";
     private $pass = "fk9we7E7M2D7Bvnx8jWB";
-    private $log;
-
-    public function __construct () {
-        $this->log = new KLogger("log.txt", KLogger::INFO);
-    }
 
     public function getConnection () {
         try {
