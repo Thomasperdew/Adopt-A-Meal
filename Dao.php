@@ -27,7 +27,7 @@ class Dao {
     public function checkDuplicateUser($username, $email) {
         try {
             $conn = $this->getConnection();
-            $sql = "SELECT 1 FROM users WHERE username= :username and email= :email";
+            $sql = "SELECT 1 FROM users WHERE name= :username and email= :email";
             $q = $conn->prepare($sql);
             $q->bindParam(":username", $username);
             $q->bindParam(":email", $email);
@@ -47,8 +47,8 @@ class Dao {
     public function userExists($username, $password) {
         try{
             $conn = $this->getConnection();
-            $hash = hash("sha256", $password . "fKd93Vmz!k*dAv5029Vkf9$3Aa");
-            $sql = "SELECT 1 FROM users WHERE username= :username and password= :hash";
+            $hash = hash("sha256", $password);
+            $sql = "SELECT 1 FROM users WHERE name= :username and password= :hash";
             $q = $conn->prepare($sql);
             $q->bindParam(":username", $username);
             $q->bindParam(":hash", $hash);

@@ -1,0 +1,12 @@
+now - FATAL --> PDOException: SQLSTATE[HY000] [1130] Host '132.178.207.19' is not allowed to connect to this MySQL server in /Applications/MAMP/htdocs/Adopt-A-Meal/Dao.php:20
+Stack trace:
+#0 /Applications/MAMP/htdocs/Adopt-A-Meal/Dao.php(20): PDO->__construct('mysql:host=qs40...', 'tfdesign_218', 'fk9we7E7M2D7Bvn...')
+#1 /Applications/MAMP/htdocs/Adopt-A-Meal/Dao.php(49): Dao->getConnection()
+#2 /Applications/MAMP/htdocs/Adopt-A-Meal/loginHandler.php(33): Dao->userExists('BobRoss', 'HelloWorld')
+#3 {main} 
+now - FATAL --> PDOException: SQLSTATE[HY000] [1130] Host '132.178.207.19' is not allowed to connect to this MySQL server in /Applications/MAMP/htdocs/Adopt-A-Meal/Dao.php:20
+Stack trace:
+#0 /Applications/MAMP/htdocs/Adopt-A-Meal/Dao.php(20): PDO->__construct('mysql:host=qs40...', 'tfdesign_218', 'fk9we7E7M2D7Bvn...')
+#1 /Applications/MAMP/htdocs/Adopt-A-Meal/Dao.php(49): Dao->getConnection()
+#2 /Applications/MAMP/htdocs/Adopt-A-Meal/loginHandler.php(33): Dao->userExists('BobRoss', 'HelloWorld')
+#3 {main} 
