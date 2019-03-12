@@ -1,2 +1,5 @@
 ## Files to ignore
 log.txt
+
+## Directories to ignore
+.idea/
