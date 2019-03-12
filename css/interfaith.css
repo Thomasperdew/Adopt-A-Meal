@@ -163,7 +163,7 @@ li {
     box-sizing: border-box;
 }
 .jumbotron{
-    min-width:768 px;
+    min-width:768px;
     background-color:black;
     /* padding-top:48px;
     padding-bottom: 48px; */
@@ -221,10 +221,10 @@ li {
   float:left;
   /* width: 100%;
   margin-left:25%; */
-  /* display: block !important;
-  height: auto !important;
-  padding-bottom: 0;
-  overflow: visible !important;
+/* display: block !important;
+height: auto !important;
+padding-bottom: 0;
+overflow: visible !important;
 } */
 .calendar:before, .calendar:after {
     content: " ";
@@ -232,7 +232,7 @@ li {
 }
 .calendar:after {
     clear: both;
-} */
+}
 .list-group-container > button {
     position: absolute;
     top: 32px;
@@ -247,11 +247,11 @@ li {
 }
 
 #footer {
-  position: relative;
-  left: 0;
-  bottom: 0px;
-  width: 100%;
-  text-align: center;
+    position: relative;
+    left: 0;
+    bottom: 0px;
+    width: 100%;
+    text-align: center;
 }
 
 footer {
@@ -289,8 +289,6 @@ footer {
     border-left: solid 1px #DDD;
 }
 
-
-
 /*
 Admin Login CSS
 */
@@ -316,9 +314,9 @@ b{
 #ip2 {
     border-radius: 25px;
     border: 2px solid rgb(0, 0, 0);
-    padding: 20px; 
+    padding: 20px;
     width: 50%;
-    height: 15px;    
+    height: 15px;
 }
 
 #bottom_login{
@@ -349,13 +347,142 @@ Share Button CSS
 Login Buttons CSS
 */
 button {
-  border-radius: 12px;
-  border: none;
-  color: rgb(0, 0, 0);
-  padding: 10px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 15px;
-  margin: 4px 2px;
+    border-radius: 12px;
+    border: none;
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin: 4px 2px;
+}
+
+#createAccount {
+    position: relative;
+    float: right;
+    right: 30px;
+    width: 50%;
+    bottom: 50px;
+    color: #f4a71d;
+}
+
+#secondaryLink {
+    display: inline-block
+}
+
+#secondaryLink:hover {
+    color: #e90510;
+    text-decoration: underline;
+}
+
+/* Link used to open the contact form */
+.forgot-password-link {
+    position: relative;
+    float: left;
+    background-color: black;
+    color: #f4a71d;
+    border: none;
+    cursor: pointer;
+    bottom: 50px;
+    width: 50%;
+    border-radius: 12px;
+    height: 45px;
+}
+
+.forgot-password-link:hover {
+    color: #e90510;
+    text-decoration: underline;
+}
+
+/* The popup form (for forgotten password) - hidden by default */
+.form-popup {
+    display: none;
+    position: absolute;
+    bottom: -10px;
+    width: 100%;
+    /*! left: 180px; */
+    z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+    position: relative;
+    left: 160px;
+    max-width: 400px;
+    padding: 10px;
+    background-color: black;
+    border-color: #f4a71d;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom:10px;
+    opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+    background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+    opacity: 1;
+}
+
+#login-footer {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+}
+
+.footer:before, .footer:after {
+    content: " ";
+    display: table;
+}
+.footer:after {
+    clear: both;
+}
+
+#login-footer a {
+    text-decoration: none;
+    color: #444444;
+    text-shadow: none;
+}
+
+#login-footer a:hover {
+    text-decoration: underline;
+    color: #777777;
+}
+
+#login-footer #first{
+    border-left: none;
+}
+
+#login-footer li {
+    display: inline;
+    padding: 0 10px;
+    border-left: solid 1px #DDD;
 }

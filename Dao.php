@@ -61,7 +61,7 @@ class Dao {
     public function createUser ($username, $email, $password) {
         $this->log->LogInfo("User created:[{$username}] [{$email}] [" . date("Y-m-d h:i:s A"). "]");
         $conn = $this->getConnection();
-        $hash = hash("sha256", $password . "fKd93Vmz!k*dAv5029Vkf9$3Aa");
+        $hash = hash("sha256", $password);
         $saveQuery =
             "INSERT INTO users 
             (username, email, password)
