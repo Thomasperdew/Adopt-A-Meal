@@ -12,7 +12,7 @@ body {
     position: relative;
 }
 
-.row-padding {
+.interfaith-row-padding {
     margin: 0;
 }
 
@@ -226,13 +226,7 @@ height: auto !important;
 padding-bottom: 0;
 overflow: visible !important;
 } */
-.calendar:before, .calendar:after {
-    content: " ";
-    display: table;
-}
-.calendar:after {
-    clear: both;
-}
+
 .list-group-container > button {
     position: absolute;
     top: 32px;
