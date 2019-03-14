@@ -8,18 +8,18 @@ class Dao {
     private $db = "tfdesign_adoptamealdev";
     private $user = "tfdesign_218";
     private $pass = "fk9we7E7M2D7Bvnx8jWB";
-    private $log;
+    //private $log;
 
-    public function __construct () {
-        $this->log = new KLogger("log.txt", KLogger::INFO);
-    }
+    //public function __construct () {
+       // $this->log = new KLogger("log.txt", KLogger::INFO);
+    //}
 
     public function getConnection () {
         try {
             $conn= new PDO("mysql:host={$this->host};dbname={$this->db}", $this->user,
                 $this->pass);
         } catch (Exception $e) {
-            $this->log->LogFatal($e);
+            //$this->log->LogFatal($e);
         }
         return $conn;
     }
@@ -39,7 +39,7 @@ class Dao {
                 exit;
             }
         } catch (Exception $e) {
-            $this->log->LogFatal($e);
+            //$this->log->LogFatal($e);
         }
         return 0;
     }
@@ -60,7 +60,7 @@ class Dao {
                 return 0;
             }
         } catch (Exception $e) {
-            $this->log->LogFatal($e);
+           // $this->log->LogFatal($e);
         }
         return 0;
     }
@@ -82,7 +82,7 @@ class Dao {
     }
 
     public function getProjects ($user) {
-        $this->log->LogDebug("Getting {$user}'s projects");
+        //$this->log->LogDebug("Getting {$user}'s projects");
         $conn = $this->getConnection();
         $sql = "select * from project where collaborators like concat('%', :user, '%')";
         $q = $conn->prepare($sql);
@@ -93,7 +93,7 @@ class Dao {
     }
 
     public function getMyProjects ($user) {
-        $this->log->LogDebug("Getting {$user}'s projects");
+       // $this->log->LogDebug("Getting {$user}'s projects");
         $conn = $this->getConnection();
         $sql = "select * from project where user_ID = (select ID from users where username = :user) order by ID;";
         $q = $conn->prepare($sql);
@@ -104,7 +104,7 @@ class Dao {
     }
 
     public function getSharedProjects ($user) {
-        $this->log->LogDebug("Getting shared projects");
+        //$this->log->LogDebug("Getting shared projects");
         $conn = $this->getConnection();
         $sql = "select * from project where collaborators like concat('%', :user, '%') and project_owner != :user;";
         $q = $conn->prepare($sql);
@@ -115,7 +115,7 @@ class Dao {
     }
 
     public function saveProject ($project, $owner, $program_language, $program) {
-        $this->log->LogInfo("Saving project:[{$project}]");
+        //$this->log->LogInfo("Saving project:[{$project}]");
         $conn = $this->getConnection();
         $saveQuery =
             "INSERT INTO project 
@@ -142,13 +142,16 @@ class Dao {
         return $q->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function mealIdea ($mealName, $description, $ingredients, $instructions, $source, $yourName, $email)
+    public function mealIdea ($title, $description, $ingredients, $external_link, $name, $email)
     {
         $conn = $this->getConnection();
-        $saveQuery ="INSERT INTO user(username, password, email)VALUES(:username, :password, :email)";
+        $saveQuery ="INSERT INTO user(title, description, ingredients, external_link, name, email)VALUES(:title, :description, :ingredients, :external_link, :name, :email)";
         $q = $conn->prepare($saveQuery);
-        $q->bindParam(":username", $username);
-        $q->bindParam(":password", $passhash);
+        $q->bindParam(":title", $title);
+        $q->bindParam(":description", $description);
+        $q->bindParam(":ingredients", $ingredients);
+        $q->bindParam(":external_link", $external_link);
+        $q->bindParam(":name", $name);
         $q->bindParam(":email", $email);
         $q->execute();
     }
