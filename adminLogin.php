@@ -1,7 +1,7 @@
 <html>
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src="js/home.js"></script>
+    <script type="text/javascript" src="js/adminLogin.js"></script>
     <link rel="stylesheet" type="text/css" href="css/interfaith.css">
     <title>Adopt-A-Meal - Home</title>
     <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.ico"/>
@@ -22,8 +22,34 @@
         <button type="submit">Login</button>
         <button type="reset" class="cancelbtn">Cancel</button>
     </div>
-    <div id="bottom_login"></div>
+    <div id="bottom_login">
+        <a class="forgot-password-link" onclick="openForm()">
+            <p>Forgot Password</p>
+        </a>
+
+        <a id="createAccount" href="signup.php">
+            <p id="secondaryLink">Create Account</p>
+        </a>
+    </div>
     </form>
-    <?php include('footer.php'); ?>
+
+    <div class="form-popup" id="forgot-password-form">
+        <form action="forgotPassword.php" class="form-container">
+            <h1>Forgot Password</h1>
+
+            <label for="user"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" name="username" required>
+
+            <button type="submit" class="btn">Retrieve Password</button>
+            <button type="submit" class="btn cancel" onclick="closeForm()">Close</button>
+        </form>
+    </div>
+
+    <div id="login-footer">
+        <footer>
+            <li id="first">© 2019 Interfaith Sanctuary</li>
+            <li>Contact Admin: <a id="adminEmail" href="mailto: ">TODO</a></li>
+        </footer>
+    </div>
 </body>
 </html>
