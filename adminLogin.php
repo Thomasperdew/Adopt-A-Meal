@@ -27,13 +27,13 @@ session_start();
         <button type="reset" class="cancelbtn">Cancel</button>
     </div>
     <div id="bottom_login">
-        <a class="forgot-password-link" onclick="openForm()">
+        <!-- <a class="forgot-password-link" onclick="openForm()">
             <p>Forgot Password</p>
         </a>
 
         <a id="createAccount" href="signup.php">
             <p id="secondaryLink">Create Account</p>
-        </a>
+        </a> -->
     </div>
     </form>
 

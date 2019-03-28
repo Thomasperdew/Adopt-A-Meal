@@ -160,7 +160,7 @@ echo "</table>";
     <!-- Delete Admin -->
     <div class="modalContainer" id="deleteAdminModal">
         <form method="POST" action="adminDeleteHandler.php" class="formModal">
-        <h1>ARE YOU SURE YOU WANT THIS ADMIN?</h1>
+        <h1>ARE YOU SURE YOU WANT TO DELETE THIS ADMIN?</h1>
         <p class="text-warning"><small>This will delete entire record and this action cannot be undone.</small></p>
 
             <input type="hidden" name="id" value=""/>
