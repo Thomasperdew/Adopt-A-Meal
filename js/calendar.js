@@ -7,6 +7,9 @@
  */
 "use strict";
 
+// $("#calendar").calendar({modal : "#events-modal", modal_type : "ajax", modal_title : function (e) { return e.title }})
+
+
 Date.prototype.getWeek = function(iso8601) {
 	if (iso8601) {
 		var target = new Date(this.valueOf());
@@ -49,7 +52,10 @@ if(!String.prototype.formatNum) {
 	};
 }
 
+// $("#calendar").calendar({modal : "#events-modal", modal_type : "iframe", modal_title : function (e) { return e.title }})
 (function($) {
+	// var calendar = $("#calendar").calendar(
+	// 	{modal : "#events-modal", modal_type : "iframe", modal_title : function (e) { return e.title }})	
 
 	var defaults = {
 		// Container to append the tooltip
@@ -103,12 +109,14 @@ if(!String.prototype.formatNum) {
 				today: 'cal-day-today'
 			}
 		},
+		// $("#calendar").calendar({modal : "#events-modal", modal_type : "ajax", modal_title : function (e) { return e.title }})
+
 		// ID of the element of modal window. If set, events URLs will be opened in modal windows.
-		modal: null,
+		modal: "#events-modal",
 		//	modal handling setting, one of "iframe", "ajax" or "template"
 		modal_type: "iframe",
 		//	function to set modal title, will be passed the event as a parameter
-		modal_title: null,
+		modal_title: function (e) { return e.title },
 		views: {
 			year: {
 				slide_events: 1,

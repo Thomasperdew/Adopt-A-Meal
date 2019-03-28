@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <html>
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -9,7 +13,7 @@
 
 <body>
     <?php include('nav.php'); ?>
-    <form method="post" action="loginHandler.php" enctype="multipart/form-data">
+    <form id="login" method="post" action="loginHandler.php" enctype="multipart/form-data">
     <h2> ADMIN LOGIN </h2>
     <div id="login">
         <label for="username"><b>Username</b></label><br>
@@ -51,5 +55,14 @@
             <li>Contact Admin: <a id="adminEmail" href="mailto: ">TODO</a></li>
         </footer>
     </div>
+
+    <?php if (isset($_SESSION['messages'])) {
+  foreach ($_SESSION['messages'] as $message) {?>
+      <div class="message <?php echo isset($_SESSION['validated']) ? $_SESSION['validated'] : '';?>"><?php
+      echo $message; ?></div>
+<?php  }
+ unset($_SESSION['messages']);
+?> </div>
+<?php } ?>
 </body>
 </html>

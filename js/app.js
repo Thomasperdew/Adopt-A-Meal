@@ -3,6 +3,9 @@
 	"use strict";
 
 	var options = {
+		modal: '#events-modal',
+		modal_type : 'iframe', 
+		// modal_title : function (e) { return e.title },
 		events_source: 'events.json.php',
 		view: 'month',
 		tmpl_path: 'tmpls/',

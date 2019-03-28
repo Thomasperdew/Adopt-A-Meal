@@ -11,7 +11,7 @@ $presets = array();
 $bad = false;
 
 if (empty($username)) {
-    $_SESSION['messages'][] = "Name is required.";
+    $_SESSION['messages'][] = "Username is required.";
     $bad = true;
 }
 
@@ -20,24 +20,22 @@ if (empty($password)) {
     $bad = true;
 }
 
-if(!$dao->adminValidation($username, $password)){
-    $_SESSION['messages'][] = "Something went wrong :(";
+if($dao->checkUsername($username)){
+    $_SESSION['messages'][] = "Admin already Exists";
     $bad = true;
 }
 
 
 if ($bad) {
-  header('Location: /adminLogin.php');
+  header('Location: /adminManage.php');
   $_SESSION['validated'] = 'bad';
   exit;
 }
 
-// Got here, means everything validated
+// Got here, means everything validated, and the comment will post.
+$dao->addAdmin($username, $password, 1);
 $_SESSION['validated'] = 'good';
-$_SESSION['admin'] = true;
-$_SESSION['id'] = $dao->getID($username);
-$_SESSION['username'] = $username;
-$_SESSION['super_user'] = $dao->checkPermissions($username);
+$_SESSION['messageSuccess'][]= "New super user has been added successfully!";
 unset($_SESSION['presets']);
 header('Location: /adminManage.php');
 exit;

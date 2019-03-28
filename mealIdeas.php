@@ -1,12 +1,21 @@
+<?php
+    session_start();
+    require_once 'Dao.php';
+    $dao = new Dao();
+    $lists = $dao->getAcceptedMealIdeas();
+?>
+
+
 <html>
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src="js/home.js"></script>
+    <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="js/table.js"></script>
     <link rel="stylesheet" type="text/css" href="css/interfaith.css">
     <title>Adopt-A-Meal - Home</title>
+    <link rel="stylesheet" type="text/css" href="css/jquery.datatables.min.css">
     <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.ico"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
@@ -20,6 +29,33 @@
     <p>If you have an idea click here 
     <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Share</button>
     </p>
+</div>
+
+<?php
+
+
+echo "<table id='example' class= 'display'>
+<thead>
+    <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Ingredients</th>
+        <th>Instructions</th>
+    </tr>
+</thead>";
+echo "<tbody>";
+foreach ($lists as $list){
+echo "<tr>";
+echo "<td>" . htmlentities($list['title']) . "</td>";
+echo "<td>" . htmlentities($list['description']) . "</td>";
+echo "<td>" . htmlentities($list['ingredients']) . "</td>";
+echo "<td>" . htmlentities($list['instructions']) . "</td>";
+echo "</tr>";
+}
+echo "</tbody>";
+echo "</table>";
+
+?>
 </div>
     <!-- Modal -->
     <form method="post" action="handler.php">
