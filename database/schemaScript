@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS users(
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
+    super_user BOOLEAN NOT NULL,
     PRIMARY KEY (id)
 );
  
@@ -36,29 +37,28 @@ CREATE TABLE IF NOT EXISTS volunteer_forms(
     organization_name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     phone VARCHAR(255) NOT NULL,
-    meal_description VARCHAR(255) NOT NULL,
-    notes VARCHAR(255) NOT NULL,
+    meal_description VARCHAR(2048) NOT NULL,
+    notes VARCHAR(2048) NOT NULL,
     paper_goods BOOLEAN NOT NULL,
-    form_status VARCHAR(255),
+    form_status INT,
     event_date_time DATETIME,
-    event_summary VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 );
 
+CREATE TABLE IF NOT EXISTS volunteer_dates{
+    id INT NOT NULL AUTO_INCREMENT,
+    date DATE NOT NULL,
+    PRIMARE KEY (id)
+};
 
-Example data to input:
+//this will create a super-admin to get you started with login name admin and password admin as well as some sample data
+
+insert into users(name, password, super_user) value('admin', 'dd94709528bb1c83d08f3088d4043f4742891f4f', 1);
 insert into meal_ideas(title, description, ingredients, instructions, meal_idea_status) values('hamburgers', 'tasty burgs', 'buns, patties', 'cook patties, put together', 0);
 insert into meal_ideas(title, description, ingredients, instructions, meal_idea_status) values('hotdogs', 'delicious dogs', 'buns, weiners', 'grill dogs, throw in bun', 0);
 insert into meal_ideas(title, description, ingredients, instructions, meal_idea_status) values('salad', 'healthy salad', 'lettuce, veggies', 'chop veggies, toss together', 0);
 insert into meal_ideas(title, description, ingredients, instructions, meal_idea_status) values('fried chicken', 'colonels finest', 'chicken, batter, spices', 'batter chicken, fry', 1);
-insert into volunteer_forms(organization_name, email, phone, meal_description, notes, paper_goods, form_status, event_summary) values('Freds Co', 'fred@gmail.com', '208-111-1111', 'Hamburgers', 'Grilling up them burgs', 1, 'Pending', 'summary');
-insert into volunteer_forms(organization_name, email, phone, meal_description, notes, paper_goods, form_status, event_summary) values('Bobs Co', 'bob@gmail.com', '208-222-2222', 'Hotdogs', 'Grilling up them dogs', 1, 'Pending', 'summary');
-insert into volunteer_forms(organization_name, email, phone, meal_description, notes, paper_goods, form_status, event_summary) values('Teds Co', 'ted@gmail.com', '208-333-3333', 'Salad', 'Choppin up that salad', 0, 'Pending', 'summary');
-insert into volunteer_forms(organization_name, email, phone, meal_description, notes, paper_goods, form_status, event_summary) values('Steves Co', 'steve@gmail.com', '208-444-4444', 'Fried chicken', 'Fried chicken fest 2019', 1, 'Pending', 'summary');
-
-
-
-insert into meal_ideas(title, description, ingredients, instructions, meal_idea_status) values('test', 'test', 'test', 'test', 0);
-insert into meal_ideas(title, description, ingredients, instructions, meal_idea_status) values('test2', 'test2', 'test2', 'test2', 0);
-insert into meal_ideas(title, description, ingredients, instructions, meal_idea_status) values('test3', 'test3', 'test3', 'test3', 0);
-insert into meal_ideas(title, description, ingredients, instructions, meal_idea_status) values('test4', 'test4', 'test4', 'test4', 0);
+insert into volunteer_forms(organization_name, email, phone, meal_description, notes, paper_goods, form_status, event_date_time) values('Freds Co', 'fred@gmail.com', '208-111-1111', 'Hamburgers', 'Grilling up them burgs', 1, 0, '2019-4-1' );
+insert into volunteer_forms(organization_name, email, phone, meal_description, notes, paper_goods, form_status, event_date_time) values('Bobs Co', 'bob@gmail.com', '208-222-2222', 'Hotdogs', 'Grilling up them dogs', 1, 0, '2019-4-2');
+insert into volunteer_forms(organization_name, email, phone, meal_description, notes, paper_goods, form_status, event_date_time) values('Teds Co', 'ted@gmail.com', '208-333-3333', 'Salad', 'Choppin up that salad', 0, 0, '2019-4-3');
+insert into volunteer_forms(organization_name, email, phone, meal_description, notes, paper_goods, form_status, event_date_time) values('Steves Co', 'steve@gmail.com', '208-444-4444', 'Fried chicken', 'Fried chicken fest 2019', 1, 0, '2019-4-4');
