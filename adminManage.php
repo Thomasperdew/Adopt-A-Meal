@@ -178,6 +178,11 @@ echo "</table>";
             <button type="reset" class="btn cancel" onclick="closeChangePermissionModal()">Close</button>
         </form>
     </div>
+
+    <?php 
+        include('footer.php'); 
+    ?>
+    
     </body>
 
 

@@ -27,6 +27,47 @@ $(function () {
 });
 
 $(function () {
+    $('button.volAcc').click(function (e) {
+        e.preventDefault();
+        //grab specific button that was pressed
+        var link = this;
+        var deleteModal = $("#acceptVolunteerModal");
+        // store the ID of meal idea, taken from button, inside the modal's form
+        deleteModal.find('input[name=accVol]').val(link.dataset.id);
+        // open modal
+        document.getElementById("acceptVolunteerModal").style.display = "block";
+    });
+});
+
+$(function () {
+    $('button.volDelete').click(function (e) {
+        e.preventDefault();
+        //grab specific button that was pressed
+        var link = this;
+        var deleteVolModal = $("#deleteVolunteerModal");
+        // store the ID of meal idea, taken from button, inside the modal's form
+        deleteVolModal.find('input[name=delVol]').val(link.dataset.id);
+        // open modal
+        document.getElementById("deleteVolunteerModal").style.display = "block";
+    });
+});
+
+
+$(function () {
+    $('button.volRestore').click(function (e) {
+        e.preventDefault();
+        //grab specific button that was pressed
+        var link = this;
+        var restoreVolModal = $("#restoreVolunteerModal");
+        // store the ID of meal idea, taken from button, inside the modal's form
+        restoreVolModal.find('input[name=resVol]').val(link.dataset.id);
+        // open modal
+        document.getElementById("restoreVolunteerModal").style.display = "block";
+    });
+    
+});
+
+$(function () {
     $('button.deleteAdmin').click(function (e) {
         e.preventDefault();
         //grab specific button that was pressed
@@ -51,19 +92,7 @@ $(function () {
         document.getElementById("changePermissionModal").style.display = "block";
     });
 });
-// $(function () {
-//     $('button.deleteAdmin').click(function (e) {
-//         e.preventDefault();
-//         //grab specific button that was pressed
-//         var link = this;
-//         var deleteModal = $("#deleteAdminModal");
-//         // store the ID of meal idea, taken from button, inside the modal's form
-//         deleteModal.find('input[name=id]').val(link.dataset.id);
-//         // open modal
-//         document.getElementById("deleteAdminModal").style.display = "block";
-//     });
-    
-// });
+
 
 $(function () {
     $('button.change').click(function (e) {
@@ -76,24 +105,33 @@ $(function () {
             } else 
                 $('#message').html('Not Matching').css('color', 'red');
         });
-    
-        // $('button.enter').click(function (e) {
-        //     var password = $("#newPassword").val();
-        //     if($('#oldPassword').val() != $('#confirmPassword').val()){
-        //         document.getElementById("changePasswordModal").style.display = "block";
-        //     }
-        //     else{
-        //         $.post("changePasswordHandler.php", {
-        //             password: password
-        //         });
-        //     }
-        // });
     });
 });
 
 
+$(function () {
+    $('button.volunteer').click(function (e) {
+        e.preventDefault();
+        //grab specific button that was pressed
+        var link = this;
+        var deleteModal = $("#volunteerModal");
+        // store the ID of meal idea, taken from button, inside the modal's form
+        deleteModal.find('input[name=id]').val(link.dataset.id);
+        // open modal
+        document.getElementById("volunteerModal").style.display = "block";
+    });
+});
+
 function addAdminModal() {
     document.getElementById("addAdminModal").style.display = "block";
+}
+
+function addDateModal() {
+    document.getElementById("addDateModal").style.display = "block";
+}
+
+function removeDateModal() {
+    document.getElementById("removeDateModal").style.display = "block";
 }
 
 function addSuperUserModal() {
@@ -136,4 +174,24 @@ function closeDeleteAdminModal() {
 
 function closeChangePermissionModal() {
     document.getElementById("changePermissionModal").style.display = "none";
+}
+
+function closeAddDateModal() {
+    document.getElementById("addDateModal").style.display = "none";
+}
+
+function closeRemoveDateModal() {
+    document.getElementById("removeDateModal").style.display = "none";
+}
+
+function closeVolunteerModal() {
+    document.getElementById("volunteerModal").style.display = "none";
+}
+
+function closeDeleteVolunteerModal(){
+    document.getElementById("deleteVolunteerModal").style.display = "none";
+}
+
+function closeRestoreVolunteerModal(){
+    document.getElementById("restoreVolunteerModal").style.display = "none";
 }

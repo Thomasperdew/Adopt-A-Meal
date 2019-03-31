@@ -23,6 +23,7 @@
     <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="js/table.js"></script>
     <script type="text/javascript" src="js/modals.js"></script>
+    <script type="text/javascript" src="js/messageFade.js"></script>
     <link rel="stylesheet" type="text/css" href="css/interfaith.css">
     <link rel="stylesheet" type="text/css" href="css/jquery.datatables.min.css">
     <title>Adopt-A-Meal - Home</title>
@@ -35,6 +36,14 @@
     include('adminNav.php'); 
 ?>
 
+<?php if (isset($_SESSION['messagePending'])) {
+            foreach ($_SESSION['messagePending'] as $message) {?>
+                <div class="messageSuccess <?php echo isset($_SESSION['validated']) ? $_SESSION['validated'] : '';?>"><?php
+                    echo $message; ?></div><br>
+            <?php  }
+            unset($_SESSION['messagePending']);
+            ?> </div>
+<?php } ?>
 
 <h1>Pending Meal Ideas </h1>
 <?php
@@ -45,6 +54,9 @@ echo "<table id='' class= 'display'>
         <th align='left'>Description</th>
         <th align='left'>Ingredients</th>
         <th align='left'>Instructions</th>
+        <th align='left'>External Link</th>
+        <th align='left'>Name</th>
+        <th align='left'>Email</th>
         <th align='left'>Status</th>
         <th align='left'>Manage</th>
     </tr>
@@ -57,6 +69,24 @@ foreach ($lists as $list){
         echo "<td>" . htmlentities($list['description']) . "</td>";
         echo "<td>" . htmlentities($list['ingredients']) . "</td>";
         echo "<td>" . htmlentities($list['instructions']) . "</td>";
+        if($list['external_link'] == NULL){
+            echo "<td></td>";
+        }
+        else{
+            echo "<td>" . htmlentities($list['external_link']) . "</td>";
+        }
+        if($list['name'] == NULL){
+            echo "<td></td>";
+        }
+        else{
+            echo "<td>" . htmlentities($list['name']) . "</td>";
+        }
+        if($list['email'] == NULL){
+            echo "<td></td>";
+        }
+        else{
+            echo "<td>" . htmlentities($list['email']) . "</td>";
+        }
         echo "<td>" . "Pending" . "</td>";
         echo "<td> <form method='post' action='mealAcceptHandler.php' enctype='multipart/form-data' id = 'idea'>
         <button name='btn' value='".$list['id']."' type='submit'>Accept</button> </form>
@@ -70,6 +100,16 @@ foreach ($lists as $list){
         echo "</table>";
     ?>
         
+    
+    <?php if (isset($_SESSION['messageSuccess'])) {
+            foreach ($_SESSION['messageSuccess'] as $message) {?>
+                <div class="messageSuccess <?php echo isset($_SESSION['validated']) ? $_SESSION['validated'] : '';?>"><?php
+                    echo $message; ?></div><br>
+            <?php  }
+            unset($_SESSION['messageSuccess']);
+            ?> </div>
+    <?php } ?>
+
 
     <h1>Accepted/Rejected Meal Ideas</h1>
     <?php
@@ -80,6 +120,9 @@ foreach ($lists as $list){
             <th align='left'>Description</th>
             <th align='left'>Ingredients</th>
             <th align='left'>Instructions</th>
+            <th align='left'>External Link</th>
+            <th align='left'>Name</th>
+            <th align='left'>Email</th>
             <th align='left'>Status</th>
             <th align='left'>Manage</th>
         </tr>
@@ -92,6 +135,24 @@ foreach ($lists as $list){
         echo "<td>" . htmlentities($list['description']) . "</td>";
         echo "<td>" . htmlentities($list['ingredients']) . "</td>";
         echo "<td>" . htmlentities($list['instructions']) . "</td>";
+        if($list['external_link'] == NULL){
+            echo "<td></td>";
+        }
+        else{
+            echo "<td>" . htmlentities($list['external_link']) . "</td>";
+        }
+        if($list['name'] == NULL){
+            echo "<td></td>";
+        }
+        else{
+            echo "<td>" . htmlentities($list['name']) . "</td>";
+        }
+        if($list['email'] == NULL){
+            echo "<td></td>";
+        }
+        else{
+            echo "<td>" . htmlentities($list['email']) . "</td>";
+        }
         if($list['meal_idea_status'] == 1){
         echo "<td>" . "Accepted" . "</td>";
         }
@@ -110,7 +171,7 @@ echo "</table>";
 ?>
 
     <div class="modalContainer" id="deleteMealModal">
-        <form method="POST" action="mealDeleteHandler.php" class="formModal">
+        <form method="POST" action="mealDeleteHandler.php" class="formModal" enctype="multipart/form-data">
         <h1>ARE YOU SURE YOU WANT TO DELETE THIS MEAL IDEA?</h1>
         <p class="text-warning"><small>This will delete entire record and this action cannot be undone.</small></p>
 

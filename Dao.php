@@ -141,25 +141,43 @@ class Dao {
         return $q->execute();
     }
 
-    public function createUser ($username, $email, $password) {
-        $this->log->LogInfo("User created:[{$username}] [{$email}] [" . date("Y-m-d h:i:s A"). "]");
+    // public function createUser ($username, $email, $password) {
+    //     $this->log->LogInfo("User created:[{$username}] [{$email}] [" . date("Y-m-d h:i:s A"). "]");
+    //     $conn = $this->getConnection();
+    //     $hash = hash("sha256", $password);
+    //     $saveQuery =
+    //         "INSERT INTO users 
+    //         (username, email, password)
+    //         VALUES
+    //         (:username, :email, :hash)";
+    //     $q = $conn->prepare($saveQuery);
+    //     $q->bindParam(":username", $username);
+    //     $q->bindParam(":email", $email);
+    //     $q->bindParam(":hash", $hash);
+    //     $q->execute();
+    // }
+
+    public function mealIdea($title, $description, $ingredients, $instructions, $external_link, $name, $email){
         $conn = $this->getConnection();
-        $hash = hash("sha256", $password);
         $saveQuery =
-            "INSERT INTO users 
-            (username, email, password)
-            VALUES
-            (:username, :email, :hash)";
+        "INSERT INTO meal_ideas
+        (title, description, ingredients, instructions, external_link, name, email, meal_idea_status)
+        VALUES
+        (:title, :description, :ingredients, :instructions, :external_link, :name, :email, 0)";
         $q = $conn->prepare($saveQuery);
-        $q->bindParam(":username", $username);
+        $q->bindParam(":title", $title);
+        $q->bindParam(":description", $description);
+        $q->bindParam(":ingredients", $ingredients);
+        $q->bindParam(":instructions", $instructions);
+        $q->bindParam(":external_link", $external_link);
+        $q->bindParam(":name", $name);
         $q->bindParam(":email", $email);
-        $q->bindParam(":hash", $hash);
         $q->execute();
     }
 
     public function getMealIdeas () {
         $conn = $this->getConnection();
-        return $conn->query("select id, title, description, ingredients, instructions, meal_idea_status from meal_ideas", PDO::FETCH_ASSOC);
+        return $conn->query("select id, title, description, ingredients, instructions, external_link, name, email, meal_idea_status from meal_ideas", PDO::FETCH_ASSOC);
     }
 
     public function acceptMealIdea ($id) {
@@ -210,10 +228,117 @@ class Dao {
         return $conn->query("select title, description, ingredients, instructions from meal_ideas where meal_idea_status = 1", PDO::FETCH_ASSOC);
     }
 
-    public function getVolunteers () {
+    public function addVolunteer($organization_name, $email, $phone, $meal_description, $notes, $paper_goods, $event_date_time){
         $conn = $this->getConnection();
-        return $conn->query("select organization_name, email, phone, meal_description, notes, paper_goods from volunteer_forms", PDO::FETCH_ASSOC);
+        $saveQuery =
+        "INSERT INTO volunteer_forms
+        (organization_name, email, phone, meal_description, notes, paper_goods, event_date_time, form_status)
+        VALUES
+        (:organization_name, :email, :phone, :meal_description, :notes, :paper_goods, :event_date_time, 0)";
+        $q = $conn->prepare($saveQuery);
+        $q->bindParam(":organization_name", $organization_name);
+        $q->bindParam(":email", $email);
+        $q->bindParam(":phone", $phone);
+        $q->bindParam(":meal_description", $meal_description);
+        $q->bindParam(":notes", $notes);
+        $q->bindParam(':paper_goods', $paper_goods);
+        $q->bindParam(":event_date_time", $event_date_time);
+        $q->execute();
     }
 
+    public function acceptVolunteer ($id) {
+        $conn = $this->getConnection();
+        $saveQuery =
+        "UPDATE volunteer_forms
+        SET form_status = 1
+        WHERE  id = $id";
+        $q = $conn->prepare($saveQuery);
+
+        return $q->execute();
+    }
+
+    public function rejectVolunteer ($id) {
+        $conn = $this->getConnection();
+        $saveQuery =
+        "UPDATE volunteer_forms
+        SET form_status = 2
+        WHERE  id = $id";
+        $q = $conn->prepare($saveQuery);
+
+        return $q->execute();
+    }
+
+    
+    public function restoreVolunteer ($id) {
+        $conn = $this->getConnection();
+        $saveQuery =
+        "UPDATE volunteer_forms
+        SET form_status = 0
+        WHERE  id = $id";
+        $q = $conn->prepare($saveQuery);
+
+        return $q->execute();
+    }
+
+    public function rejectNonAcceptedVolunteers ($id, $date) {
+        $conn = $this->getConnection();
+        $saveQuery =
+        "UPDATE volunteer_forms
+        SET form_status = 2
+        WHERE  event_date_time = '$date' AND id != $id";
+        $q = $conn->prepare($saveQuery);
+
+        return $q->execute();
+    }
+
+    public function getVolunteers () {
+        $conn = $this->getConnection();
+        return $conn->query("select id, organization_name, email, phone, meal_description, notes, paper_goods, form_status, event_date_time from volunteer_forms", PDO::FETCH_ASSOC);
+    }
+
+    public function getVolunteerDates () {
+        $conn = $this->getConnection();
+        return $conn->query("select id, date from volunteer_dates", PDO::FETCH_ASSOC);
+    }
+
+    public function getVolunteerDateByID ($id) {
+        $conn = $this->getConnection();
+        return $conn->query("SELECT event_date_time from volunteer_forms WHERE id = $id")->fetchObject()->event_date_time;
+    }
+
+    public function getDateByID ($id) {
+        $conn = $this->getConnection();
+        return $conn->query("SELECT date from volunteer_dates WHERE id = $id")->fetchObject()->date;
+    }
+
+    public function removeDate ($date) {
+        $conn = $this->getConnection();
+        $saveQuery =
+        "DELETE FROM volunteer_dates
+        WHERE  date = '$date'";
+        $q = $conn->prepare($saveQuery);
+
+        return $q->execute();
+    }
+
+    public function addVolunteerDate($date){
+        $conn = $this->getConnection();
+        $saveQuery =
+        "INSERT INTO volunteer_dates
+        (date)
+        VALUES
+        ('$date')";
+        $q = $conn->prepare($saveQuery);
+        $q->execute();
+    }
+
+    public function removeVolunteerDate($date){
+        $conn = $this->getConnection();
+        $saveQuery =
+        "DELETE FROM volunteer_dates
+        WHERE date = '$date'";
+        $q = $conn->prepare($saveQuery);
+        $q->execute();
+    }
     
 }

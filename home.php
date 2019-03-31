@@ -1,24 +1,42 @@
-<!-- <?php
-// session_start();
-// $message = isset($_SESSION['message']) ? $_SESSION['message'] : '';
-// $username = $_SESSION['username'];
-// $password = $_SESSION['password'];
-// unset($_SESSION['message']);
-// unset($_SESSION['username']);
-// unset($_SESSION['password']);
-?> -->
+<?php
+    session_start();
+    require_once 'Dao.php';
+    $dao = new Dao();
+    $dates = $dao->getVolunteerDates();
+?>
 
 <html>
-<head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <!-- <script type="text/javascript" src="js/home.js"></script> -->
+
+   <head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="js/table.js"></script>
+<script type="text/javascript" src="js/modals.js"></script>
+<script type="text/javascript" src="js/messageFade.js"></script>
+<link rel="stylesheet" type="text/css" href="css/interfaith.css">
+<link rel="stylesheet" type="text/css" href="css/jquery.datatables.min.css">
+<title>Adopt-A-Meal - Home</title>
+<link rel="shortcut icon" type="image/x-icon" href="./images/favicon.ico"/>
+
+</head>
+<!-- <head> -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/home.js"></script>
+    <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="js/table.js"></script>
     <link rel="stylesheet" type="text/css" href="css/interfaith.css">
     <link rel="stylesheet" href="components/bootstrap2/css/bootstrap.css">
     <link rel="stylesheet" href="components/bootstrap2/css/bootstrap-responsive.css">
     <link rel="stylesheet" href="css/calendar.css">
     <title>Adopt-A-Meal - Home</title>
-    <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.ico"/>
-</head>
+    <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.ico"/> -->
+<!-- </head> -->
 
 <body>
 
@@ -26,98 +44,73 @@
     include('nav.php'); 
 ?>
 
-    <!-- <img src="images/Interfaith-Temp-Logo-Other.png" width="100" height="70"> -->
-    <div class="text-center jumbotron">
-        <h1 id="jumbotron-header">Adopt A Meal</h1>
-        <p>Select a date to Adopt A Meal</p>
+<div class="header">
+    <h1 id="home-header">Adopt A Meal</h1>
+    <p>Select a date to Adopt A Meal</p>
+</div>
+
+
+<?php if (isset($_SESSION['messageSuccess'])) {
+        foreach ($_SESSION['messageSuccess'] as $message) {?>
+            <div class="messageSuccess <?php echo isset($_SESSION['validated']) ? $_SESSION['validated'] : '';?>"><?php
+                echo $message; ?></div><br>
+        <?php  }
+        unset($_SESSION['messageSuccess']);
+        ?> </div>
+<?php } ?>
+
+<h1>Available Volunteer Dates</h1>
+<?php
+echo "<table id='' class= 'display'>
+<thead>
+    <tr>
+        <th align='left'>Date (YYYY/MM/DD)</th>
+        <th align='left'>Volunteer</th>
+    </tr>
+</thead>";
+echo "<tbody>";
+foreach ($dates as $date){
+        echo "<tr>";
+        echo "<td>" . htmlentities($date['date']) . "</td>";
+        echo "<td>
+            <button class='volunteer' data-id='".$date['id']."'>Volunteer</button>
+            </td>";
+        echo "</tr>";
+    }
+echo "</tbody>";
+echo "</table>";
+?>
+
+  <!-- Delete Admin -->
+  <div class="modalContainer" id="volunteerModal">
+        <form method="POST" action="volunteerHandler.php" class="formModal" id="volMod">
+            <h1>Volunteer To Adopt A Meal!</h1>
+
+            <label for="name"><b>Name/Orginization</b></label><br>
+            <input type="text" placeholder="Enter Name/Orginization" name="name" required><br>
+
+            <label for="email"><b>Email</b></label><br>
+            <input type="text" placeholder="Enter Email" name="email" required><br>
+
+            <label for="phone"><b>Phone</b></label><br>
+            <input type="text" placeholder="Enter Phone Number" name="phone" required><br>
+
+            <label for="description"><b>Meal Description</b></label><br>
+            <textarea type="text" placeholder="Enter Meal Description" name="description" required></textarea><br>
+
+            <label for="notes"><b>Meal Notes</b></label><br>
+            <textarea type="text" placeholder="Enter Any Notes" name="notes" required></textarea><br>
+
+            <label for="paper_goods"><b>Supplying Paper Goods?</b></label>
+            <input type="checkbox" id="paper" name="paper"><br>
+
+            <input type="hidden" name="id" value=""/>
+            <button class="btn btn-danger" type="submit">Volunteer</button>
+            <button type="reset" class="btn cancel" onclick="closeVolunteerModal()">Close</button>
+        </form>
     </div>
-    <div class="container">
-        <div class="page-header">
 
-            <div class="pull-right form-inline">
-                <div class="btn-group">
-                    <button class="btn btn-primary" data-calendar-nav="prev"><< Prev</button>
-                    <button class="btn" data-calendar-nav="today">Today</button>
-                    <button class="btn btn-primary" data-calendar-nav="next">Next >></button>
-                </div>
-            </div>
-
-            <h3></h3>
-        </div>
-
-        <div class="row">
-            <div class="span9">
-                <div id="calendar"></div>
-            </div>
-            <div class="span3">
-                <div class="row-fluid">
-                    <select id="first_day" class="span12">
-                        <option value="" selected="selected">First day of week language-dependant</option>
-                        <option value="2">First day of week is Sunday</option>
-                        <option value="1">First day of week is Monday</option>
-                    </select>
-                    <select id="language" class="span12">
-                        <option value="">Select Language (default: en-US)</option>
-                        <option value="bg-BG">Bulgarian</option>
-                        <option value="nl-NL">Dutch</option>
-                        <option value="fr-FR">French</option>
-                        <option value="de-DE">German</option>
-                        <option value="el-GR">Greek</option>
-                        <option value="hu-HU">Hungarian</option>
-                        <option value="id-ID">Bahasa Indonesia</option>
-                        <option value="it-IT">Italian</option>
-                        <option value="pl-PL">Polish</option>
-                        <option value="pt-BR">Portuguese (Brazil)</option>
-                        <option value="ro-RO">Romania</option>
-                        <option value="es-CO">Spanish (Colombia)</option>
-                        <option value="es-MX">Spanish (Mexico)</option>
-                        <option value="es-ES">Spanish (Spain)</option>
-                        <option value="es-CL">Spanish (Chile)</option>
-                        <option value="es-DO">Spanish (República Dominicana)</option>
-                        <option value="ru-RU">Russian</option>
-                        <option value="sk-SR">Slovak</option>
-                        <option value="sv-SE">Swedish</option>
-                        <option value="zh-CN">简体中文</option>
-                        <option value="zh-TW">繁體中文</option>
-                        <option value="ko-KR">한국어</option>
-                        <option value="th-TH">Thai (Thailand)</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-
-
-        <script type="text/javascript" src="components/jquery/jquery.min.js"></script>
-        <script type="text/javascript" src="components/underscore/underscore-min.js"></script>
-        <script type="text/javascript" src="components/bootstrap2/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="components/jstimezonedetect/jstz.min.js"></script>
-        <script type="text/javascript" src="js/language/bg-BG.js"></script>
-        <script type="text/javascript" src="js/language/nl-NL.js"></script>
-        <script type="text/javascript" src="js/language/fr-FR.js"></script>
-        <script type="text/javascript" src="js/language/de-DE.js"></script>
-        <script type="text/javascript" src="js/language/el-GR.js"></script>
-        <script type="text/javascript" src="js/language/it-IT.js"></script>
-        <script type="text/javascript" src="js/language/hu-HU.js"></script>
-        <script type="text/javascript" src="js/language/pl-PL.js"></script>
-        <script type="text/javascript" src="js/language/pt-BR.js"></script>
-        <script type="text/javascript" src="js/language/ro-RO.js"></script>
-        <script type="text/javascript" src="js/language/es-CO.js"></script>
-        <script type="text/javascript" src="js/language/es-MX.js"></script>
-        <script type="text/javascript" src="js/language/es-ES.js"></script>
-        <script type="text/javascript" src="js/language/es-CL.js"></script>
-        <script type="text/javascript" src="js/language/es-DO.js"></script>
-        <script type="text/javascript" src="js/language/ru-RU.js"></script>
-        <script type="text/javascript" src="js/language/sk-SR.js"></script>
-        <script type="text/javascript" src="js/language/sv-SE.js"></script>
-        <script type="text/javascript" src="js/language/zh-CN.js"></script>
-        <script type="text/javascript" src="js/language/cs-CZ.js"></script>
-        <script type="text/javascript" src="js/language/ko-KR.js"></script>
-        <script type="text/javascript" src="js/language/zh-TW.js"></script>
-        <script type="text/javascript" src="js/language/id-ID.js"></script>
-        <script type="text/javascript" src="js/language/th-TH.js"></script>
-        <script type="text/javascript" src="js/calendar.js"></script>
-        <script type="text/javascript" src="js/app.js"></script>
-    </div>
+    
     <div class="interfaith-row">
         <div class="col-sm-12 col-lg-8 col-lg-offset-2">
             <div class="panel panel-default">
@@ -127,37 +120,20 @@
 
                     '<h4>Instructions:</h4>
                     <ol>
-                        <li>Click an open volunteer event in the Calendar above (Open events are blue).</li>
+                        <li>Choose a date from the list above and click the volunteer button.</li>
                         <li>Fill out the form that opens with a your organization\'s name or your name, contact information, and some information about the meal that will be provided.
-                            If you\'re unsure of the exact meal, please include that in the meal description and we will work with you!</li>
-                        <li>Submit the form, and then you will recieve an e-mail confirmation.</li>
-                        <li>Staff at Interfaith Sanctuary will contact you once they\'ve been notified of your request.</li>
+                            If you're unsure of the exact meal, please include that in the meal description and we will work with you!</li>
+                        <li>Submit the form and staff at Interfaith Sanctuary will contact you once they've been notified of your request.</li>
                     </ol>
 
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="events-modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h3 class="modal-title">Event</h3>
-                </div>
-                <div class="modal-body" style="height: 400px">
-                </div>
-                <div class="modal-footer">
-                    <a href="#" data-dismiss="modal" class="btn">Close</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="text-center jumbotron jumbotron-footer">
+    
+    <div class="text-center top-footer">
         <h1>Thank you for adopting a meal!</h1>
         <p>We would like to thank all the organizations who have volunteered for their wonderful contributions!</p>
-        <div class="interfaith-row">
-                    </div>
     </div>
  <div class="interfaith-row">
 <?php 
@@ -165,6 +141,5 @@
 ?>
 </div>
 </body>
-
 
 </html>

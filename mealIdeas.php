@@ -11,6 +11,7 @@
     <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
     <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="js/table.js"></script>
+    <script type="text/javascript" src="js/messageFade.js"></script>
     <link rel="stylesheet" type="text/css" href="css/interfaith.css">
     <title>Adopt-A-Meal - Home</title>
     <link rel="stylesheet" type="text/css" href="css/jquery.datatables.min.css">
@@ -30,6 +31,15 @@
     <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Share</button>
     </p>
 </div>
+
+<?php if (isset($_SESSION['messages'])) {
+    foreach ($_SESSION['messages'] as $message) {?>
+        <div class="message <?php echo isset($_SESSION['validated']) ? $_SESSION['validated'] : '';?>"><?php
+        echo $message; ?></div>
+    <?php  }
+    unset($_SESSION['messages']);
+    ?> </div>
+    <?php } ?>
 
 <?php
 
@@ -90,10 +100,10 @@ echo "</table>";
                         <h4>Ingredients:</h4>
                         <div id="dynamic_field">
                             <div class="ingredient input-group">
-                                <input type="text" id="ingredients" name="ingredient[]" placeholder="Enter an ingredient" class="form-control ingredient_list">
-                                <span class="input-group-btn">
+                                <textarea type="text" id="ingredients" name="ingredients" placeholder="Enter ingredients" class="form-control ingredient_list"></textarea>
+                                <!-- <span class="input-group-btn">
                                         <button type="button" name="add" id="add" class="btn btn-success">Add More</button>
-                                    </span>
+                                </span> -->
                             </div>
                         </div>
                         <div id="ingredients-validation" class="hidden alert-danger">Required: Please provide a list of ingredients needed to make your meal idea</div>
@@ -128,7 +138,7 @@ echo "</table>";
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button id ="submit-form" type="button" class="btn btn-success">Submit</button>
+                    <button id ="submit-form" type="submit" class="btn btn-success">Submit</button>
                     <button id="cancel-form" type="button" class="btn btn-detail" data-dismiss="modal">Cancel</button>
                 </div>
             </div>

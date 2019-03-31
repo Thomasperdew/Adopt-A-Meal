@@ -32,7 +32,6 @@ if ($bad) {
   exit;
 }
 
-// Got here, means everything validated, and the comment will post.
 $dao->addAdmin($username, $password, 0);
 $_SESSION['validated'] = 'good';
 $_SESSION['messageSuccess'][]= "New admin has been added successfully!";

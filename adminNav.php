@@ -11,7 +11,7 @@
 
 <html>
 <body>
-    <nav class="navbar navbar-default navbar-fixed-top" id="nav-shadow">
+    <nav class="nav-bar navbar-default navbar-fixed-top" id="nav-shadow">
         <div class="navbar-header pull-left">
             <a class="navbar-brand" id="navbar-brand-padding" href="http://interfaithsanctuary.org/">
                 <img class="brand" alt="Brand" id="navbar-brand-size" src="images/Interfaith-Temp-Logo.png">
