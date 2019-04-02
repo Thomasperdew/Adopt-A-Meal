@@ -267,13 +267,22 @@ class Dao {
 
         return $q->execute();
     }
-
     
     public function restoreVolunteer ($id) {
         $conn = $this->getConnection();
         $saveQuery =
         "UPDATE volunteer_forms
         SET form_status = 0
+        WHERE  id = $id";
+        $q = $conn->prepare($saveQuery);
+
+        return $q->execute();
+    }
+
+    public function deleteVolunteer ($id) {
+        $conn = $this->getConnection();
+        $saveQuery =
+        "DELETE FROM volunteer_forms
         WHERE  id = $id";
         $q = $conn->prepare($saveQuery);
 

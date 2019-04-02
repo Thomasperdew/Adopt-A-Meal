@@ -240,10 +240,10 @@ echo "</table>";
 
 <div class="modalContainer" id="acceptVolunteerModal">
         <form method="POST" action="volunteerAcceptHandler.php" class="formModal" enctype="multipart/form-data">
-        <h1>ACCEPT THIS Volunteer</h1>
+        <h1>Accept This Volunteer</h1>
         <p class="text-warning"><small>This will remove volunteer date from list and also reject all other volunteers on same date.</small></p>
             <input type="hidden" name="accVol" value=""/>
-            <button class="btn btn-danger" type="submit">Delete</button>
+            <button class="btn btn-danger" type="submit">Accept</button>
             <button type="reset" class="btn cancel" onclick="closeAcceptVolunteerModal()">Close</button>
         </form>
 </div>

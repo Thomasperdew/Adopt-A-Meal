@@ -195,3 +195,7 @@ function closeDeleteVolunteerModal(){
 function closeRestoreVolunteerModal(){
     document.getElementById("restoreVolunteerModal").style.display = "none";
 }
+
+function closeAcceptVolunteerModal(){
+    document.getElementById("acceptVolunteerModal").style.display = "none";
+}

@@ -203,19 +203,11 @@ h1#home-header{
     font-size:110px;
     font-family: "Averia Serif Libre", cursive
 }
-.jumbotron h1{
-    color:#f4a71d;
-    text-align: center;
-    margin:0 0 0 0;
+/*  */
+h1#meal-header, p#meal-header{
+    color:#ef3c5a;
 }
-.jumbotron p{
-    margin-top: 500px;
-    font-size: 21px;
-    font-weight: 200;
-    margin:0 0 11px;
-    color: white;
-    text-align: center;
-} */
+
 
 
 #jumbotron-footer-header > * {

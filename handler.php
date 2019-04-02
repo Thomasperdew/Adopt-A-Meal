@@ -45,8 +45,7 @@ if (empty($email)) {
 }
 
 if ($bad) {
-    echo "shit";
-    // header('Location: /mealIdeas.php');
+    header('Location: /mealIdeas.php');
     exit;
 }
 $dao->mealIdea($title, $description, $ingredients, $instructions, $external_link, $name, $email);

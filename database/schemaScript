@@ -45,11 +45,12 @@ CREATE TABLE IF NOT EXISTS volunteer_forms(
     PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS volunteer_dates{
+CREATE TABLE IF NOT EXISTS volunteer_dates(
     id INT NOT NULL AUTO_INCREMENT,
     date DATE NOT NULL,
-    PRIMARE KEY (id)
-};
+    PRIMARY KEY (id)
+);
+
 
 //this will create a super-admin to get you started with login name admin and password admin as well as some sample data
 
