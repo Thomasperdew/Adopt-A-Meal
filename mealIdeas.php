@@ -13,7 +13,7 @@
     <script type="text/javascript" src="js/table.js"></script>
     <script type="text/javascript" src="js/messageFade.js"></script>
     <link rel="stylesheet" type="text/css" href="css/interfaith.css">
-    <title>Adopt-A-Meal - Home</title>
+    <title>Adopt-A-Meal - Meal Ideas</title>
     <link rel="stylesheet" type="text/css" href="css/jquery.datatables.min.css">
     <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.ico"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">

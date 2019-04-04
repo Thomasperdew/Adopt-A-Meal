@@ -27,7 +27,7 @@
     <script type="text/javascript" src="js/messageFade.js"></script>
     <link rel="stylesheet" type="text/css" href="css/interfaith.css">
     <link rel="stylesheet" type="text/css" href="css/jquery.datatables.min.css">
-    <title>Adopt-A-Meal - Home</title>
+    <title>Adopt-A-Meal - Admin Volunteer Management</title>
     <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.ico"/>
 </head>
 

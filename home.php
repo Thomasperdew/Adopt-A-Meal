@@ -21,7 +21,7 @@
 <link rel="stylesheet" type="text/css" href="css/interfaith.css">
 <link rel="stylesheet" type="text/css" href="css/jquery.datatables.min.css">
 <title>Adopt-A-Meal - Home</title>
-<link rel="shortcut icon" type="image/x-icon" href="./images/favicon.ico"/>
+<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico"/>
 
 </head>
 <!-- <head> -->
