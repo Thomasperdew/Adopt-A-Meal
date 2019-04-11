@@ -9,20 +9,18 @@
     $dao = new Dao();
     $vols = $dao->getVolunteers();
     $volsAcc = $dao->getVolunteers();
+    $rds = $dao->getVolunteerDates ();
 ?>
 
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
     <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="js/table.js"></script>
     <script type="text/javascript" src="js/date.js"></script>
-    <script type="text/javascript" src="js/date2.js"></script>
     <script type="text/javascript" src="js/modals.js"></script>
     <script type="text/javascript" src="js/messageFade.js"></script>
     <link rel="stylesheet" type="text/css" href="css/interfaith.css">
@@ -39,7 +37,7 @@
 
 <div class ="addAdmin">
     <button class="btn" onclick="addDateModal()">Add Volunteer Date</button>
-    <!-- <button class="btn" onclick="removeDateModal()">Remove Volunteer Date</button> -->
+    <button class="btn" onclick="removeDateModal()">Remove Volunteer Date</button>
 </div>
 
 
@@ -90,20 +88,18 @@ foreach ($vols as $vol){
         echo "<td>" . htmlentities($vol['event_date_time']) . "</td>";
         echo "<td>" . "Pending" . "</td>";
         echo "<td><button class='volAcc' data-id='".$vol['id']."'>Accept</button>
-        <form method='post' action='volunteerRejectHandler.php' enctype='multipart/form-data' id = 'idea'>
-        <button name='btn' value='" . $vol['id']. "' type='submit'>Reject</button> </form> </td>";
+             <button class='volRej' data-id='".$vol['id']."'>Reject</button></td>";
         echo "</tr>";
-
+        
     }
 }
 echo "</tbody>";
 echo "</table>";
 
-    ?>
+?>
 
 <h1> Accepted/Rejected Volunteer Requests </h1>
 <?php
-
 
 echo "<table id='example' class= 'display'>
 <thead>
@@ -198,41 +194,17 @@ echo "</table>";
 
 <div class="modalContainer" id="removeDateModal">
 <form method="POST" class="formModal" action="removeDateHandler.php">
-        <div class="nDP">
-        <label for="date">Enter New Volunteer Date For Removal:</label>
-        <input type="date" id="date" name="date">
-        <span class="validity"></span>
-        </div>
-        <p class="fBL">Enter your birthday:</p>
-        <div id="fDP" class="fDP">
-        <span>
-            <label for="day">Day:</label>
-            <select id="d" name="day">
-            </select>
-        </span>
-        <span>
-            <label for="month">Month:</label>
-            <select id="m" name="month">
-            <option selected>January</option>
-            <option>February</option>
-            <option>March</option>
-            <option>April</option>
-            <option>May</option>
-            <option>June</option>
-            <option>July</option>
-            <option>August</option>
-            <option>September</option>
-            <option>October</option>
-            <option>November</option>
-            <option>December</option>
-            </select>
-        </span>
-        <span>
-            <label for="year">Year:</label>
-            <select id="y" name="year">
-            </select>
-        </span>
-        </div>
+        <?php
+        echo "<select name='removeDate'>";
+        ?>
+        <option value="">Date To Remove</option>
+        <?php
+        foreach ($rds as $rd) {
+            echo "<option data-value='" . htmlentities($rd['date']) . "'>" . htmlentities($rd['date']) . "</option>";
+            }
+        echo "</select>";
+
+        ?>
         <button type="submit" id="enter" class="enter btn">Remove Date</button>
         <button type="reset" onclick="closeRemoveDateModal()" class="btn cancel">Close</button>
     </form>
@@ -241,10 +213,20 @@ echo "</table>";
 <div class="modalContainer" id="acceptVolunteerModal">
         <form method="POST" action="volunteerAcceptHandler.php" class="formModal" enctype="multipart/form-data">
         <h1>Accept This Volunteer</h1>
-        <p class="text-warning"><small>This will remove volunteer date from list and also reject all other volunteers on same date.</small></p>
+        <p class="text-warning"><small>This will remove volunteer date from list and send email notifiying volunteer their request has been accepted. Will also reject all other volunteers on same date.</small></p>
             <input type="hidden" name="accVol" value=""/>
             <button class="btn btn-danger" type="submit">Accept</button>
             <button type="reset" class="btn cancel" onclick="closeAcceptVolunteerModal()">Close</button>
+        </form>
+</div>
+
+<div class="modalContainer" id="rejectVolunteerModal">
+        <form method="POST" action="volunteerRejectHandler.php" class="formModal" enctype="multipart/form-data">
+        <h1>Reject This Volunteer</h1>
+        <p class="text-warning"><small>This will remove volunteer date from list and send email that request has been rejected</small></p>
+            <input type="hidden" name="rejVol" value=""/>
+            <button class="btn btn-danger" type="submit">Reject</button>
+            <button type="reset" class="btn cancel" onclick="closeRejectVolunteerModal()">Close</button>
         </form>
 </div>
 

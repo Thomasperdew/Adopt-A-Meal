@@ -8,6 +8,6 @@ $dao->acceptVolunteer($id);
 $date = $dao->getVolunteerDateByID($id);
 $dao->rejectNonAcceptedVolunteers($id, $date);
 $dao->removeDate($date);
-$_SESSION['messagePending'][]= "Volunteer event has been accepted";
+$_SESSION['messageSuccess'][]= "Volunteer event has been accepted";
 header('Location: /adminVolunteer.php');
 exit();

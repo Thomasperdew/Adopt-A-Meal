@@ -40,6 +40,19 @@ $(function () {
 });
 
 $(function () {
+    $('button.volRej').click(function (e) {
+        e.preventDefault();
+        //grab specific button that was pressed
+        var link = this;
+        var deleteModal = $("#rejectVolunteerModal");
+        // store the ID of meal idea, taken from button, inside the modal's form
+        deleteModal.find('input[name=rejVol]').val(link.dataset.id);
+        // open modal
+        document.getElementById("rejectVolunteerModal").style.display = "block";
+    });
+});
+
+$(function () {
     $('button.volDelete').click(function (e) {
         e.preventDefault();
         //grab specific button that was pressed
@@ -198,4 +211,8 @@ function closeRestoreVolunteerModal(){
 
 function closeAcceptVolunteerModal(){
     document.getElementById("acceptVolunteerModal").style.display = "none";
+}
+
+function closeRejectVolunteerModal(){
+    document.getElementById("rejectVolunteerModal").style.display = "none";
 }

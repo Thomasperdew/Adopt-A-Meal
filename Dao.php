@@ -41,16 +41,17 @@ class Dao {
         return 0;
     }
 
-    public function addAdmin($username, $password, $permission){
+    public function addAdmin($username, $email, $password, $permission){
         $conn = $this->getConnection();
         $hash = sha1($password . $username);
         $saveQuery =
         "INSERT INTO users
-        (name, password, super_user)
+        (name, email, password, super_user)
         VALUES
-        (:username, :password, $permission)";
+        (:username, :email, :password, $permission)";
         $q = $conn->prepare($saveQuery);
         $q->bindParam(":username", $username);
+        $q->bindParam(":email", $email);
         $q->bindParam(":password", $hash);
         $q->execute();
     }
@@ -116,7 +117,7 @@ class Dao {
     
     public function getAdmins () {
         $conn = $this->getConnection();
-        return $conn->query("select id, name, super_user from users", PDO::FETCH_ASSOC);
+        return $conn->query("select id, name, email, super_user from users", PDO::FETCH_ASSOC);
     }
 
     public function getID($username){
@@ -140,22 +141,6 @@ class Dao {
 
         return $q->execute();
     }
-
-    // public function createUser ($username, $email, $password) {
-    //     $this->log->LogInfo("User created:[{$username}] [{$email}] [" . date("Y-m-d h:i:s A"). "]");
-    //     $conn = $this->getConnection();
-    //     $hash = hash("sha256", $password);
-    //     $saveQuery =
-    //         "INSERT INTO users 
-    //         (username, email, password)
-    //         VALUES
-    //         (:username, :email, :hash)";
-    //     $q = $conn->prepare($saveQuery);
-    //     $q->bindParam(":username", $username);
-    //     $q->bindParam(":email", $email);
-    //     $q->bindParam(":hash", $hash);
-    //     $q->execute();
-    // }
 
     public function mealIdea($title, $description, $ingredients, $instructions, $external_link, $name, $email){
         $conn = $this->getConnection();
@@ -289,6 +274,7 @@ class Dao {
         return $q->execute();
     }
 
+    
     public function rejectNonAcceptedVolunteers ($id, $date) {
         $conn = $this->getConnection();
         $saveQuery =
@@ -296,8 +282,13 @@ class Dao {
         SET form_status = 2
         WHERE  event_date_time = '$date' AND id != $id";
         $q = $conn->prepare($saveQuery);
-
+        
         return $q->execute();
+    }
+    
+    public function getVolunteerEmail($id){
+        $conn = $this->getConnection();
+        return $conn->query("SELECT email from volunteer_forms WHERE id = $id")->fetchObject()->email;
     }
 
     public function getVolunteers () {

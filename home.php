@@ -24,19 +24,6 @@
 <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.ico"/>
 
 </head>
-<!-- <head> -->
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src="js/home.js"></script>
-    <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
-    <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="js/table.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/interfaith.css">
-    <link rel="stylesheet" href="components/bootstrap2/css/bootstrap.css">
-    <link rel="stylesheet" href="components/bootstrap2/css/bootstrap-responsive.css">
-    <link rel="stylesheet" href="css/calendar.css">
-    <title>Adopt-A-Meal - Home</title>
-    <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.ico"/> -->
-<!-- </head> -->
 
 <body>
 
