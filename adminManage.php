@@ -14,7 +14,7 @@
 <html>
     <head>
 
-           <meta charset="utf-8">
+        <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -25,7 +25,7 @@
         <script type="text/javascript" src="js/messageFade.js"></script>
         <link rel="stylesheet" type="text/css" href="css/interfaith.css">
         <link rel="stylesheet" type="text/css" href="css/jquery.datatables.min.css">
-        <title>Adopt-A-Meal - Home</title>
+        <title>Adopt-A-Meal - Admin Home</title>
         <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.ico"/>
 
     </head>
