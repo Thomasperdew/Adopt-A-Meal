@@ -4,6 +4,9 @@ $username = $_POST['username'];
 $password = $_POST['password'];
 $_SESSION['presets']['username'] = $username;
 $_SESSION['presets']['password'] = $password;
+$to_email_address = "jaimeguevara@u.boisestate.edu" ; // We need to fill this with DB emails
+$subject = "Super User Added";
+$message = $username . " has been added as a super user by " . $_SESSION['username'] . ".";
 
 require_once 'Dao.php';
 $dao = new Dao();
@@ -36,6 +39,7 @@ if ($bad) {
 $dao->addAdmin($username, $password, 1);
 $_SESSION['validated'] = 'good';
 $_SESSION['messageSuccess'][]= "New super user has been added successfully!";
+mail($to_email_address,$subject,$message);
 unset($_SESSION['presets']);
 header('Location: /adminManage.php');
 exit;

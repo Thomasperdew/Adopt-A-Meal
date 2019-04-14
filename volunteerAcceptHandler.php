@@ -1,5 +1,7 @@
 <?php
 session_start();
+$to_email_address = "jaimeguevara@u.boisestate.edu" ; // We need to fill this with DB emails
+$subject = "Volunteer Accepted";
 
 require_once 'Dao.php';
 $id = $_POST['accVol'];
@@ -9,5 +11,7 @@ $date = $dao->getVolunteerDateByID($id);
 $dao->rejectNonAcceptedVolunteers($id, $date);
 $dao->removeDate($date);
 $_SESSION['messagePending'][]= "Volunteer event has been accepted";
+$message = "A meal idea, for the following date: " . $date . ", has been accepted by " . $_SESSION['username'] . ".";
+mail($to_email_address,$subject,$message);
 header('Location: /adminVolunteer.php');
 exit();
