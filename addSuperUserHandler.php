@@ -6,7 +6,7 @@ $password = $_POST['password'];
 $_SESSION['presets']['username'] = $username;
 $_SESSION['presets']['email'] = $email;
 $_SESSION['presets']['password'] = $password;
-$to_email_address = "jaimeguevara@u.boisestate.edu" ; // We need to fill this with DB emails
+$to_email_address = "jaimeguevara@u.boisestate.edu"; // We need to fill this with DB emails
 $subject = "Super User Added";
 $message = $username . " has been added as a super user by " . $_SESSION['username'] . ".";
 
