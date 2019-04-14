@@ -1,7 +1,7 @@
 <?php
 session_start();
 $date = $_POST['date'];
-$to_email_address = "jdguevara93@gmail.com, jaimeguevara@u.boisestate.edu"; // We need to fill this with DB emails
+$to_email_address = "jaimeguevara@u.boisestate.edu"; // We need to fill this with DB emails
 $subject = "Volunteer Date Accepted";
 $message = "The following date: " . $date . " has been added as a volunteer date by " . $_SESSION['username'] . ".";
 
