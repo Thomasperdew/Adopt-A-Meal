@@ -14,6 +14,7 @@ USE adoptameal;
 CREATE TABLE IF NOT EXISTS users(
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL UNIQUE,
+    email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     super_user BOOLEAN NOT NULL,
     PRIMARY KEY (id)
@@ -54,7 +55,7 @@ CREATE TABLE IF NOT EXISTS volunteer_dates(
 
 //this will create a super-admin to get you started with login name admin and password admin as well as some sample data
 
-insert into users(name, password, super_user) value('admin', 'dd94709528bb1c83d08f3088d4043f4742891f4f', 1);
+insert into users(name, email, password, super_user) value('admin', 'admin@admin.com', 'dd94709528bb1c83d08f3088d4043f4742891f4f', 1);
 insert into meal_ideas(title, description, ingredients, instructions, meal_idea_status) values('hamburgers', 'tasty burgs', 'buns, patties', 'cook patties, put together', 0);
 insert into meal_ideas(title, description, ingredients, instructions, meal_idea_status) values('hotdogs', 'delicious dogs', 'buns, weiners', 'grill dogs, throw in bun', 0);
 insert into meal_ideas(title, description, ingredients, instructions, meal_idea_status) values('salad', 'healthy salad', 'lettuce, veggies', 'chop veggies, toss together', 0);

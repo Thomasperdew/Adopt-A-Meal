@@ -1,6 +1,6 @@
 <?php
 session_start();
-$date = $_POST['date'];
+$date = $_POST['removeDate'];
 
 require_once 'Dao.php';
 $dao = new Dao();
