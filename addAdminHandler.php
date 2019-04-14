@@ -6,7 +6,7 @@ $password = $_POST['password'];
 $_SESSION['presets']['username'] = $username;
 $_SESSION['presets']['email'] = $email;
 $_SESSION['presets']['password'] = $password;
-$to_email_address = "jdguevara93@gmail.com" ; // We need to fill this with DB emails
+$to_email_address = "jaimeguevara@u.boisestate.edu" ; // We need to fill this with DB emails
 $subject = "Admin Added";
 $message = $username . " has been added as an admin by " . $_SESSION['username'] . ".";
 
