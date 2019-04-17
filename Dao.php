@@ -5,7 +5,7 @@ class Dao {
     private $host = "localhost";
     private $db = "adoptameal";
     private $user = "root";
-    private $pass = "root";
+    private $pass = "";
 
     public function getConnection () {
         try {

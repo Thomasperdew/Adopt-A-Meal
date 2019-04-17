@@ -83,57 +83,40 @@ echo "</table>";
                         <p>A provided recipe should be able to make at least 200 portions</p>
                     </div>
                     <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon">Meal Name</span>
+                            <h4>Meal Name:</h4>
                             <input id="meal-title" name="title" type="text" class="form-control" placeholder="Meal Name" required="">
-                        </div>
                         <div id="meal-title-validation" class="hidden alert-danger">Required: Please enter a title for the meal</div>
                     </div>
                     <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon">Description</span>
+                            <h4>Meal Description:</h4>
                             <input id="description" name="description" type="text" class="form-control" placeholder="Meal Description" required="">
-                        </div>
                         <div id="description-validation" class="hidden alert-danger">Required: Please enter a description of the meal</div>
                     </div>
                     <div class="form-group">
                         <h4>Ingredients:</h4>
                         <div id="dynamic_field">
-                            <div class="ingredient input-group">
-                                <textarea type="text" id="ingredients" name="ingredients" placeholder="Enter ingredients" class="form-control ingredient_list"></textarea>
-                                <!-- <span class="input-group-btn">
-                                        <button type="button" name="add" id="add" class="btn btn-success">Add More</button>
-                                </span> -->
-                            </div>
+                                <textarea rows="6" type="text" id="ingredients" name="ingredients" placeholder="Enter ingredients" class="form-control ingredient_list"></textarea>
                         </div>
                         <div id="ingredients-validation" class="hidden alert-danger">Required: Please provide a list of ingredients needed to make your meal idea</div>
                     </div>
                     <div class="form-group">
                         <h4>Instructions:</h4>
-                        <div class="input-group">
-                            <textarea id="instructions" name="instructions" class="form-control" placeholder="Instructions"></textarea>
-                        </div>
+                            <textarea rows="6" id="instructions" name="instructions" class="form-control" placeholder="Instructions"></textarea>
                         <div id="instructions-validation" class="hidden alert-danger">Required: Please provide instructions to prepare the meal</div>
                     </div>
                     <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon">Source Website</span>
+                            <h4>Source Website:</h4>
                             <input id="external-link" name="external_link" type="text" class="form-control" placeholder="Link to the Source Website">
-                        </div>
                         <p class="help-block">Optional</p>
                     </div>
                     <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon">Your Name</span>
+                            <h4>Your Name:</h4>
                             <input id="name" name="name" type="text" class="form-control" placeholder="Your Name">
-                        </div>
                         <p class="help-block">Optional</p>
                     </div>
                     <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon">Your Email</span>
+                            <h4>Your Email:</h4>
                             <input id="email" name="email" type="text" class="form-control" placeholder="Your Email">
-                        </div>
                         <p class="help-block">Optional</p>
                     </div>
                 </div>
