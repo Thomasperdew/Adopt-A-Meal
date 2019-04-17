@@ -47,7 +47,7 @@ if ($bad) {
   exit;
 }
 
-// Got here, means everything validated, and the comment will post.
+// Got here, means everything validated.
 $dao->addAdmin($username, $email, $password, 1);
 $_SESSION['validated'] = 'good';
 $_SESSION['messageSuccess'][]= "New super user has been added successfully!";

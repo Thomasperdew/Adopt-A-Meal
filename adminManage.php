@@ -1,6 +1,5 @@
 <?php
     session_start();
-    // $message = isset($_SESSION['message']) ? $_SESSION['message'] : '';
     if (!$_SESSION['admin']) {
         header('Location: /index.php');
         exit;

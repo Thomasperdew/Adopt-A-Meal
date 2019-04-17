@@ -17,13 +17,6 @@ require_once 'Dao.php';
 $dao = new Dao();
 $bad = false;
 $date = $dao->getDateByID($id);
-// echo $name . "\n";
-// echo $email. "\n";
-// echo $phone. "\n";
-// echo $description. "\n";
-// echo $notes. "\n";
-// echo $paper. "\n";
-// echo $date;
 
 if (empty($name)) {
     $_SESSION['messages'][] = "Name/Orginization is required.";

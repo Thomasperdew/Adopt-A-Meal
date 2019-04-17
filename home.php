@@ -68,7 +68,7 @@ echo "</tbody>";
 echo "</table>";
 ?>
 
-  <!-- Delete Admin -->
+  <!-- Volunteer request modal -->
   <div class="modalContainer" id="volunteerModal">
         <form method="POST" action="volunteerHandler.php" class="formModal" id="volMod">
             <h1>Volunteer To Adopt A Meal!</h1>

@@ -301,6 +301,9 @@ b{
     background-color: rgb(221, 221, 221);
 }
 
+input[type=text].form-control {
+    width: 100%;
+}
 input[type=text], input[type=password] {
     width: 50%;
     padding: 12px 20px;
@@ -309,6 +312,7 @@ input[type=text], input[type=password] {
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
+
 
 /*Accept Reject buttons*/
 form#idea {
@@ -338,6 +342,11 @@ textarea{
     width: 100%;
     height:125px;
 }
+
+textarea.form-control {
+    height: 125px;
+    width: 100%;
+  }
 
 /*
 Login Buttons CSS
@@ -474,7 +483,7 @@ button {
     vertical-align:middle;
     text-align:center;
     border-radius: 25px;
-    z-index: 10000;
+    z-index: 1000;
 }
 
 /*Success messages*/
@@ -491,7 +500,7 @@ button {
     position: absolute;
     left:37.5%;
     top:20%;
-    z-index: 10000000;
+    z-index: 1000;
 }
 
 .modalContainer {
@@ -500,7 +509,7 @@ button {
     left:37.5%;
     top:25%;
     width: 100%;
-    z-index: 10000;
+    z-index: 100000000;
 }
 
 .modalContainer#volunteerModal {
