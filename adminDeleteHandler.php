@@ -1,9 +1,9 @@
 <?php
+require_once 'Dao.php';
+$dao = new Dao();
 session_start();
 
-require_once 'Dao.php';
 $id = $_POST['id'];
-$dao = new Dao();
 $bad = false;
 echo $id;
 $permission = $_SESSION['super_user'];
@@ -21,5 +21,8 @@ if ($bad) {
 
 $dao->deleteAdmin($id);
 $_SESSION['messageSuccess'][] = "Admin successfully deleted!";
+$send_to =  $dao->getEmails();
+$subject = "Admin Deleted";
+$message = $username . " has been removed as an admin by " . $_SESSION['username'] . ".";
 header('Location: /adminManage.php');
 exit();

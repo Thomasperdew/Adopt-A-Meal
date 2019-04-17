@@ -1,9 +1,9 @@
 <?php
+require_once 'Dao.php';
+$dao = new Dao();
 session_start();
 $date = $_POST['removeDate'];
 
-require_once 'Dao.php';
-$dao = new Dao();
 $presets = array();
 $bad = false;
 
@@ -24,6 +24,10 @@ if ($bad) {
 $dao->removeVolunteerDate($date);
 $_SESSION['validated'] = 'good';
 $_SESSION['messageSuccess'][]= "Volunteer date has been removed from list successfully!";
+$send_to =  $dao->getEmails();
+$subject = "Date Removed";
+$message = "The following date: " . $date . " has been removed by " . $_SESSION['username'] . ".";
+mail($send_to, $subject, $message);
 unset($_SESSION['presets']);
 header('Location: /adminVolunteer.php');
 exit;

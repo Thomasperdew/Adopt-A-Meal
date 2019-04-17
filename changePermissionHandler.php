@@ -1,9 +1,9 @@
 <?php
+require_once 'Dao.php';
+$dao = new Dao();
 session_start();
 
-require_once 'Dao.php';
 $id = $_POST['change'];
-$dao = new Dao();
 $bad = false;
 $permission = $_SESSION['super_user'];
 
@@ -20,5 +20,8 @@ if ($bad) {
 
 $dao->changePermission($id);
 $_SESSION['messageSuccess'][] = "Admins permissions successfully updated!";
+$send_to =  $dao->getEmails();
+$subject = "Admin Permissions Changed";
+$message = $username . " has had their administrator permissions updated.";
 header('Location: /adminManage.php');
 exit();

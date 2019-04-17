@@ -56,8 +56,13 @@ if ($bad) {
     exit;
 }
 
-
 $dao-> addVolunteer($name, $email, $phone, $description, $notes, $paper, $date);
 $_SESSION['messageSuccess'][]= "Your volunteer request has been sent! We will review your event and contact you if it is accepted.";
+$send_to = $dao->getEmails();
+$subject = "New Volunteer Request";
+$message = "The following user has made a volunteer request: " . $name . 
+            "\nThey would like to provide the following meal: " . $description .
+            "\nThey have selected to volunteer on: " . $date;
+mail($send_to, $subject, $message);
 header('Location: /home.php');
 exit();

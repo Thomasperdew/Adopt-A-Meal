@@ -1,4 +1,6 @@
 <?php
+require_once 'Dao.php';
+$dao = new Dao();
 session_start();
 $oldPassword = $_POST['oldPassword'];
 $confirmPassword = $_POST['confirmPassword'];
@@ -6,8 +8,6 @@ $newPassword = $_POST['newPassword'];
 $id = $_SESSION['id'];
 $username = $_SESSION['username'];
 
-require_once 'Dao.php';
-$dao = new Dao();
 $presets = array();
 $usrPass = $dao->getPassword($username);
 $hash = sha1($oldPassword . $username);
