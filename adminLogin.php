@@ -37,15 +37,6 @@ session_start();
         <button type="submit">Login</button>
         <button type="reset" class="cancelbtn">Cancel</button>
     </div>
-    <div id="bottom_login">
-        <!-- <a class="forgot-password-link" onclick="openForm()">
-            <p>Forgot Password</p>
-        </a>
-
-        <a id="createAccount" href="signup.php">
-            <p id="secondaryLink">Create Account</p>
-        </a> -->
-    </div>
     </form>
 
     <div class="form-popup" id="forgot-password-form">
@@ -66,7 +57,6 @@ session_start();
             <li>Contact Admin: <a id="adminEmail" href="mailto: ">TODO</a></li>
         </footer>
     </div>
-
     
 </body>
 </html>
