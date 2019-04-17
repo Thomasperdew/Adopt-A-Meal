@@ -2,10 +2,14 @@
 
 class Dao {
 
-    private $host = "qs4006.pair.com";
-    private $db = "tfdesign_adoptamealdev";
-    private $user = "tfdesign_218";
-    private $pass = "fk9we7E7M2D7Bvnx8jWB";
+    // private $host = "qs4006.pair.com";
+    // private $db = "tfdesign_adoptamealdev";
+    // private $user = "tfdesign_218";
+    // private $pass = "fk9we7E7M2D7Bvnx8jWB";
+    private $host = "localhost";
+    private $db = "adoptameal";
+    private $user = "root";
+    private $pass = "";
 
     public function getConnection () {
         try {

@@ -46,6 +46,15 @@
         ?> </div>
 <?php } ?>
 
+<?php if (isset($_SESSION['messages'])) {
+    foreach ($_SESSION['messages'] as $message) {?>
+        <div class="message <?php echo isset($_SESSION['validated']) ? $_SESSION['validated'] : '';?>"><?php
+        echo $message; ?></div>
+    <?php  }
+    unset($_SESSION['messages']);
+    ?> </div>
+    <?php } ?>
+
 <h1>Available Volunteer Dates</h1>
 <?php
 echo "<table id='' class= 'display'>

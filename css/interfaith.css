@@ -473,6 +473,19 @@ button {
 }
 
 /*Error messages*/
+/* .message{
+    color: black;
+    background-color:#D8000C;
+    width:25%;
+    margin:auto;
+    margin-top:25px;
+    font-size:1.5em;
+    vertical-align:middle;
+    text-align:center;
+    border-radius: 25px;
+    z-index: 1000;
+} */
+
 .message{
     color: black;
     background-color:#D8000C;
@@ -483,6 +496,9 @@ button {
     vertical-align:middle;
     text-align:center;
     border-radius: 25px;
+    position: absolute;
+    left:37.5%;
+    top:20%;
     z-index: 1000;
 }
 

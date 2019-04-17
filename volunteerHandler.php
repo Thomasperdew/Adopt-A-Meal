@@ -28,6 +28,11 @@ if (empty($email)) {
     $bad = true;
 }
 
+if(!preg_match("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^",$email)){ 
+    $_SESSION['messages'][] = "Invalid email";
+    $bad = true;
+}
+
 if (empty($phone)) {
     $_SESSION['messages'][] = "Phone number is required.";
     $bad = true;
@@ -45,7 +50,7 @@ if (empty($notes)) {
 
 
 if ($bad) {
-    header('Location: /mealIdeas.php');
+    header('Location: /home.php');
     exit;
 }
 
