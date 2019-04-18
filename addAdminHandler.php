@@ -1,4 +1,8 @@
 <?php
+/*
+Adds a admin
+*/
+
 require_once 'Dao.php';
 $dao = new Dao();
 session_start();
@@ -25,6 +29,7 @@ if (empty($email)) {
     $bad = true;
 }
 
+//Method to check if email is valid
 if(!preg_match("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^",$email)){ 
     $_SESSION['messages'][] = "Invalid email";
     $bad = true;
@@ -47,10 +52,11 @@ if ($bad) {
   exit;
 }
 
+// Got here, means everything validated and will add admin
 $dao->addAdmin($username, $email, $password, 0);
 $_SESSION['validated'] = 'good';
 $_SESSION['messageSuccess'][]= "New admin has been added successfully!";
-mail($send_to,$subject,$message);
+mail($send_to,$subject,$message);   //Send notification email
 unset($_SESSION['presets']);
 header('Location: /adminManage.php');
 exit;

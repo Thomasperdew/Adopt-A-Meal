@@ -25,6 +25,7 @@ if (empty($email)) {
     $bad = true;
 }
 
+//Method to check if email is valid
 if(!preg_match("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^",$email)){ 
     $_SESSION['messages'][] = "Invalid email";
     $bad = true;
@@ -47,11 +48,11 @@ if ($bad) {
   exit;
 }
 
-// Got here, means everything validated.
+// Got here, means everything validated and will add super admin
 $dao->addAdmin($username, $email, $password, 1);
 $_SESSION['validated'] = 'good';
 $_SESSION['messageSuccess'][]= "New super user has been added successfully!";
-mail($to_email_address,$subject,$message);
+mail($to_email_address,$subject,$message);  //Send notification email
 unset($_SESSION['presets']);
 header('Location: /adminManage.php');
 exit;

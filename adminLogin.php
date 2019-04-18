@@ -15,6 +15,7 @@ session_start();
 <body>
     <?php include('nav.php'); ?>
 
+    <!-- Displays any error messages to page -->
     <?php if (isset($_SESSION['messages'])) {
     foreach ($_SESSION['messages'] as $message) {?>
         <div class="message <?php echo isset($_SESSION['validated']) ? $_SESSION['validated'] : '';?>"><?php
@@ -24,6 +25,7 @@ session_start();
     ?> </div>
     <?php } ?>
 
+    <!--Login form.. posts to loginHandler.php  -->
     <form id="login" method="post" action="loginHandler.php" enctype="multipart/form-data">
     <h2> ADMIN LOGIN </h2>
     <div id="login">
@@ -38,18 +40,6 @@ session_start();
         <button type="reset" class="cancelbtn">Cancel</button>
     </div>
     </form>
-
-    <div class="form-popup" id="forgot-password-form">
-        <form action="forgotPassword.php" class="form-container">
-            <h1>Forgot Password</h1>
-
-            <label for="user"><b>Username</b></label>
-            <input type="text" placeholder="Enter Username" name="username" required>
-
-            <button type="submit" class="btn">Retrieve Password</button>
-            <button type="submit" class="btn cancel" onclick="closeForm()">Close</button>
-        </form>
-    </div>
 
     <div id="footer">
         <footer>

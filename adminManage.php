@@ -1,12 +1,13 @@
 <?php
     session_start();
+    //If user not admin dont display this page and return them to main page
     if (!$_SESSION['admin']) {
         header('Location: /index.php');
         exit;
     }
     require_once 'Dao.php';
     $dao = new Dao();
-    $admins = $dao->getAdmins();
+    $admins = $dao->getAdmins();    //grab all admins from database
     $curId = $_SESSION['id'];
 ?>
 
@@ -61,6 +62,7 @@
     ?>
 </div>
 
+<!--Sets up and displays the Admins table on admin manage page-->
 <h1>Admins</h1>
 <?php
 echo "<table id='' class= 'display'>
@@ -73,6 +75,7 @@ echo "<table id='' class= 'display'>
     </tr>
 </thead>";
 echo "<tbody>";
+//loops through all admins
 foreach ($admins as $admin){
         echo "<tr>";
         echo "<td>" . htmlentities($admin['name']) . "</td>";
@@ -83,13 +86,16 @@ foreach ($admins as $admin){
         else{
             echo "<td> Admin </td>";
         }
+    // If current user is a super user and current row is not their data give delete and add permissions ability
     if($curId != $admin['id'] && $_SESSION['super_user']){
+        //if admin in current row is not a super user allow ability to add permissions
         if(!$admin['super_user']){
             echo "<td>
             <button class='deleteAdmin' data-id='".$admin['id']."'>Delete</button>
             <button class='changePermission' data-id='".$admin['id']."'>Add Permissions</button>
             </td>";
         }
+        //if admin in current row is already a super, just give ability to delete
         else{
             echo "<td>
             <button class='deleteAdmin' data-id='".$admin['id']."'>Delete</button>
@@ -97,6 +103,7 @@ foreach ($admins as $admin){
         }
         echo "</tr>";
     }
+    //If row displays current user data, only give ability to change password (cant delete yourself)
     else if($curId == $admin['id']){
         echo "<td>
         <button class='change' value='" . $admin['id']. "'>Change Password</button></td>";
@@ -126,7 +133,7 @@ echo "</table>";
         </form>
     </div>
 
-    <!-- Add Admin Modal -->
+    <!-- Add Admin Modal. Posts to addAdminHandler.php -->
     <div class="modalContainer" id="addAdminModal">
         <form method="POST" action="addAdminHandler.php" class="formModal" id="addAdmin">
             <h1>Add Admin</h1>
@@ -145,7 +152,7 @@ echo "</table>";
         </form>
     </div>
 
-    <!-- Add Super User Modal -->
+    <!-- Add Super User Modal. Posts to addSuperUserHandler.php -->
     <div class="modalContainer" id="addSuperUserModal">
         <form method="POST" action="addSuperUserHandler.php" class="formModal" id="addAdmin">
             <h1>Add Super User</h1>
@@ -164,33 +171,35 @@ echo "</table>";
         </form>
     </div>
 
-    <!-- Delete Admin -->
+    <!-- Delete Admin. Posts to adminDeleteHandler.php -->
     <div class="modalContainer" id="deleteAdminModal">
         <form method="POST" action="adminDeleteHandler.php" class="formModal">
         <h1>ARE YOU SURE YOU WANT TO DELETE THIS ADMIN?</h1>
         <p class="text-warning"><small>This will delete entire record and this action cannot be undone.</small></p>
-
+            <!-- Hidden field to grab id of admin from button for deleting purposes -->
             <input type="hidden" name="id" value=""/>
             <button class="btn btn-danger" type="submit">Delete</button>
             <button type="reset" class="btn cancel" onclick="closeDeleteAdminModal()">Close</button>
         </form>
     </div>
 
-    <!-- Change Permissions -->
+    <!-- Change Permissions. Posts to changePermissionHandler.php -->
     <div class="modalContainer" id="changePermissionModal">
         <form method="POST" action="changePermissionHandler.php" class="formModal">
         <h1>ARE YOU SURE YOU WANT TO GIVE ADMIN SUPER USER PERMISSIONS?</h1>
+            <!-- Hidden field to grab id of admin from button for changing permission purposes -->
             <input type="hidden" name="change" value=""/>
             <button class="btn btn-danger" type="submit">Change</button>
             <button type="reset" class="btn cancel" onclick="closeChangePermissionModal()">Close</button>
         </form>
     </div>
 
+
     <?php 
         include('footer.php'); 
     ?>
     
-    </body>
+</body>
 
 
 

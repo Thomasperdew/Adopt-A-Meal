@@ -45,7 +45,7 @@ if ($bad) {
   exit;
 }
 
-// Got here, means everything validated, and the comment will post.
+// Got here, means everything validated and password will be changed
 $_SESSION['validated'] = 'good';
 $_SESSION['admin'] = true;
 $dao->changePassword($id, $username, $newPassword);

@@ -32,7 +32,7 @@ if ($bad) {
   exit;
 }
 
-// Got here, means everything validated
+// Got here, means everything validated and admin will be logged in
 $_SESSION['validated'] = 'good';
 $_SESSION['admin'] = true;
 $_SESSION['id'] = $dao->getID($username);

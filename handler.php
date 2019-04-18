@@ -1,4 +1,5 @@
 <?php
+// Meal idea modal handler
 session_start();
 $title = $_POST['title'];
 $description = $_POST['description'];
@@ -48,6 +49,8 @@ if ($bad) {
     header('Location: /mealIdeas.php');
     exit;
 }
+
+//If here everything validated and meal idea will posts
 $dao->mealIdea($title, $description, $ingredients, $instructions, $external_link, $name, $email);
 $_SESSION['validated'] = 'good';
 unset($_SESSION['presets']);

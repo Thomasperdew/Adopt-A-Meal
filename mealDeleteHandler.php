@@ -6,6 +6,7 @@ $send_to = $dao->getEmails();
 $subject = "Meal Idea Deleted";
 $message = "A meal idea has been deleted by " . $_SESSION['username'] . ".";
 
+// Got here, means everything validated and meal idea will be deleted
 $id = $_POST['id'];
 $dao->deleteMealIdea($id);
 $_SESSION['messageSuccess'][]= "Meal idea has been deleted successfully!";

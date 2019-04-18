@@ -1,14 +1,15 @@
 <?php
     session_start();
+    //If user not admin dont display this page and return them to main page
     if (!$_SESSION['admin']) {
         header('Location: /index.php');
         exit;
     }
     require_once 'Dao.php';
     $dao = new Dao();
-    $vols = $dao->getVolunteers();
-    $volsAcc = $dao->getVolunteers();
-    $rds = $dao->getVolunteerDates ();
+    $vols = $dao->getVolunteers();  //Grabs list of all meal volunteers for first table (pending)
+    $volsAcc = $dao->getVolunteers();   //Grabs lists of all meal volunteers for second table (accepted/rejected)
+    $rds = $dao->getVolunteerDates ();  //Grabs all volunteer dates available
 ?>
 
 <html>
@@ -34,12 +35,13 @@
     include('adminNav.php'); 
 ?>
 
+<!--Diplay buttons that allow admin to add volunteer dates to main page or delete dates from main page -->
 <div class ="addAdmin">
     <button class="btn" onclick="addDateModal()">Add Volunteer Date</button>
     <button class="btn" onclick="removeDateModal()">Remove Volunteer Date</button>
 </div>
 
-
+<!--Display all messages to page -->
 <?php if (isset($_SESSION['messageSuccess'])) {
         foreach ($_SESSION['messageSuccess'] as $message) {?>
             <div class="messageSuccess <?php echo isset($_SESSION['validated']) ? $_SESSION['validated'] : '';?>"><?php
@@ -49,10 +51,10 @@
         ?> 
 <?php } ?>
 
+
+<!--Sets up and displays list of all pending volunteer requests -->
 <h1> Pending Volunteer Requests </h1>
 <?php
-
-
 echo "<table id='example' class= 'display'>
 <thead>
     <tr>
@@ -69,7 +71,9 @@ echo "<table id='example' class= 'display'>
 </thead>";
 
 echo "<tbody>";
+//Loops through list of all volunteers
 foreach ($vols as $vol){
+    //Only diplay volunteers with pending status (0)
     if($vol['form_status'] == 0){
         echo "<tr>";
         echo "<td>" . htmlentities($vol['organization_name']) . "</td>";
@@ -83,9 +87,9 @@ foreach ($vols as $vol){
         else{
                 echo "<td>" . "Will Provide" . "</td>";
         }
-        
         echo "<td>" . htmlentities($vol['event_date_time']) . "</td>";
         echo "<td>" . "Pending" . "</td>";
+        // Buttons to display confirmation popup modals for accepting or rejecting volunteer. Sets data-id to id of volunteer for accepting/rejecting purposes
         echo "<td><button class='volAcc' data-id='".$vol['id']."'>Accept</button>
              <button class='volRej' data-id='".$vol['id']."'>Reject</button></td>";
         echo "</tr>";
@@ -97,6 +101,7 @@ echo "</table>";
 
 ?>
 
+<!--Sets up and displays table for accepted/rejected volunteers -->
 <h1> Accepted/Rejected Volunteer Requests </h1>
 <?php
 
@@ -116,7 +121,9 @@ echo "<table id='example' class= 'display'>
 </thead>";
 
 echo "<tbody>";
+//Loop through list of volunteers
 foreach ($volsAcc as $vol){
+    //Display all volunteers that are not currently pending
     if($vol['form_status'] != 0){
         echo "<tr>";
         echo "<td>" . htmlentities($vol['organization_name']) . "</td>";
@@ -138,6 +145,7 @@ foreach ($volsAcc as $vol){
         else{
             echo "<td>" . "Rejected" . "</td>";
         }
+        //Buttons to display confirmation popup modals for restoring or deleting volunteer. Sets data-id to id of volunteer for restoring/deleting purposes
         echo "<td>  <button class='volRestore' data-id='".$vol['id']."'>Restore</button>
                     <button class='volDelete' data-id='".$vol['id']."'>Delete</button></td>";
         echo "</tr>";
@@ -148,7 +156,7 @@ echo "</table>";
 
     ?>
 
-
+<!--Modal for adding volunteer dates to main page. Posts to addDateHandler.php -->
 <div class="modalContainer" id="addDateModal">
 <form method="POST" class="formModal" action="addDateHandler.php">
         <div class="nativeDatePicker">
@@ -191,6 +199,7 @@ echo "</table>";
     </form>
 </div>
 
+<!--Modal for removing volunteer dates from main page. Posts to removeDateHandler.php -->
 <div class="modalContainer" id="removeDateModal">
 <form method="POST" class="formModal" action="removeDateHandler.php">
         <?php
@@ -198,6 +207,7 @@ echo "</table>";
         ?>
         <option value="">Date To Remove</option>
         <?php
+        //Loops through and displays all currently available dates
         foreach ($rds as $rd) {
             echo "<option data-value='" . htmlentities($rd['date']) . "'>" . htmlentities($rd['date']) . "</option>";
             }
@@ -209,40 +219,54 @@ echo "</table>";
     </form>
 </div>
 
+<!--Confirmation pop up modal for accepting volunteer. Posts to volunteerAcceptHandler.php.
+    If submitted will move request to accepted list
+    and send message to volunteer notifying of request acceptance -->
 <div class="modalContainer" id="acceptVolunteerModal">
         <form method="POST" action="volunteerAcceptHandler.php" class="formModal" enctype="multipart/form-data">
         <h1>Accept This Volunteer</h1>
         <p class="text-warning"><small>This will remove volunteer date from list and send email notifiying volunteer their request has been accepted. Will also reject all other volunteers on same date.</small></p>
+            <!-- Hidden field to grab id of volunteer from button for accepting purposes -->
             <input type="hidden" name="accVol" value=""/>
             <button class="btn btn-danger" type="submit">Accept</button>
             <button type="reset" class="btn cancel" onclick="closeAcceptVolunteerModal()">Close</button>
         </form>
 </div>
 
+<!--Confirmation pop up modal for rejecting volunteer. Posts to volunteerRejectHandler.php
+    If submitted will move request to rejected list
+    and send message to volunteer notifying of request rejected -->
 <div class="modalContainer" id="rejectVolunteerModal">
         <form method="POST" action="volunteerRejectHandler.php" class="formModal" enctype="multipart/form-data">
         <h1>Reject This Volunteer</h1>
         <p class="text-warning"><small>This will remove volunteer date from list and send email that request has been rejected</small></p>
+            <!-- Hidden field to grab id of volunteer from button for rejecting purposes -->
             <input type="hidden" name="rejVol" value=""/>
             <button class="btn btn-danger" type="submit">Reject</button>
             <button type="reset" class="btn cancel" onclick="closeRejectVolunteerModal()">Close</button>
         </form>
 </div>
 
- <div class="modalContainer" id="deleteVolunteerModal">
+<!--Confirmation pop up modal for deleting volunteer. Posts to volunteerDeleteHandler.php
+    If submitted will delete entire request record from system-->
+<div class="modalContainer" id="deleteVolunteerModal">
         <form method="POST" action="volunteerDeleteHandler.php" class="formModal" enctype="multipart/form-data">
-        <h1>ARE YOU SURE YOU WANT TO DELETE THIS Volunteer?</h1>
-        <p class="text-warning"><small>This will delete entire record and this action cannot be undone.</small></p>
+        <h1>ARE YOU SURE YOU WANT TO DELETE THIS VOLUNTEER?</h1>
+        <p class="text-warning"><small> WARNING!! This will delete entire record and this action cannot be undone.</small></p>
+            <!-- Hidden field to grab id of volunteer from button for deleting purposes -->
             <input type="hidden" name="delVol" value=""/>
             <button class="btn btn-danger" type="submit">Delete</button>
             <button type="reset" class="btn cancel" onclick="closeDeleteVolunteerModal()">Close</button>
         </form>
 </div>
 
+<!--Confirmation pop up modal for restoring volunteer. Posts to volunteerRestoreHandler.php
+    If submitted will put request back to pending-->
 <div class="modalContainer" id="restoreVolunteerModal">
     <form method="POST" action="volunteerRestoreHandler.php" class="formModal">
     <h1>ARE YOU SURE YOU WANT TO RESTORE THIS Volunteer?</h1>
     <p class="text-warning"><small>This will change status back to pending.</small></p>
+        <!-- Hidden field to grab id of volunteer from button for restoring purposes -->
         <input type="hidden" name="resVol" value=""/>
         <button class="btn btn-danger" type="submit">Okay</button>
         <button type="reset" class="btn cancel" onclick="closeRestoreVolunteerModal()">Close</button>

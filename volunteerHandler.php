@@ -54,6 +54,7 @@ if ($bad) {
     exit;
 }
 
+// Got here, means everything validated and volunteer request will be added to admins volunteer list page
 $dao-> addVolunteer($name, $email, $phone, $description, $notes, $paper, $date);
 $_SESSION['messageSuccess'][]= "Your volunteer request has been sent! We will review your event and contact you if it is accepted.";
 $send_to = $dao->getEmails();

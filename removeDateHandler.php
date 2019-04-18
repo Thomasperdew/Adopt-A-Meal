@@ -7,8 +7,6 @@ $date = $_POST['removeDate'];
 $presets = array();
 $bad = false;
 
-echo $date;
-
 if (empty($date)) {
     $_SESSION['messages'][] = "Something went wrong.";
     $bad = true;
@@ -20,7 +18,7 @@ if ($bad) {
   exit;
 }
 
-
+// Got here, means everything validated and volunteer date will be deleted from database/main page
 $dao->removeVolunteerDate($date);
 $_SESSION['validated'] = 'good';
 $_SESSION['messageSuccess'][]= "Volunteer date has been removed from list successfully!";

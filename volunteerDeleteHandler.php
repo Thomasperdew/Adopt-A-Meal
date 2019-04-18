@@ -3,6 +3,7 @@ require_once 'Dao.php';
 $dao = new Dao();
 session_start();
 
+//Delete volunteer entirely from database
 $id = $_POST['delVol'];
 $dao->deleteVolunteer($id);
 $_SESSION['messageSuccess'][]= "Volunteer has been deleted successfully!";

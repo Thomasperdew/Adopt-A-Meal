@@ -5,6 +5,7 @@ session_start();
 $send_to =  $dao->getEmails();
 $subject = "Volunteer Accepted";
 
+//Accept volunteer.. remove date from available dates for volunteer from main page
 $id = $_POST['accVol'];
 $dao->acceptVolunteer($id);
 $date = $dao->getVolunteerDateByID($id);

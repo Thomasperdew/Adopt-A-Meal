@@ -3,6 +3,7 @@ require_once 'Dao.php';
 $dao = new Dao();
 session_start();
 
+//Reject volunteer request (change status)
 $id = $_POST['rejVol'];
 $dao->rejectVolunteer($id);
 $_SESSION['messageSuccess'][]= "Volunteer event has been rejected";

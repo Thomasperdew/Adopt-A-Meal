@@ -74,7 +74,6 @@ class Dao {
         $q->bindParam(":hash", $hash);
         $q->execute();
     
-        // $result = $conn->query($query);
         $count = $q->rowCount();
         if($count == 1){
             return true;
@@ -282,7 +281,6 @@ class Dao {
         return $q->execute();
     }
 
-    
     public function rejectNonAcceptedVolunteers ($id, $date) {
         $conn = $this->getConnection();
         $saveQuery =

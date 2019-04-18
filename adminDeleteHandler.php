@@ -19,6 +19,7 @@ if ($bad) {
     exit;
 }
 
+// Got here, means everything validated and admin will be deleted
 $dao->deleteAdmin($id);
 $_SESSION['messageSuccess'][] = "Admin successfully deleted!";
 $send_to =  $dao->getEmails();

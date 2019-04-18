@@ -2,7 +2,7 @@
     session_start();
     require_once 'Dao.php';
     $dao = new Dao();
-    $lists = $dao->getAcceptedMealIdeas();
+    $lists = $dao->getAcceptedMealIdeas();  //Grab all accepted meal ideas
 ?>
 
 
@@ -32,6 +32,7 @@
     </p>
 </div>
 
+<!--Display any messages to page -->
 <?php if (isset($_SESSION['messages'])) {
     foreach ($_SESSION['messages'] as $message) {?>
         <div class="message <?php echo isset($_SESSION['validated']) ? $_SESSION['validated'] : '';?>"><?php
@@ -39,11 +40,11 @@
     <?php  }
     unset($_SESSION['messages']);
     ?> </div>
-    <?php } ?>
+<?php } ?>
 
+
+<!--Sets up and displays table of all accepted meal ideas -->
 <?php
-
-
 echo "<table id='example' class= 'display'>
 <thead>
     <tr>
@@ -54,6 +55,7 @@ echo "<table id='example' class= 'display'>
     </tr>
 </thead>";
 echo "<tbody>";
+//Loop through lists of all accepted meal ideas
 foreach ($lists as $list){
 echo "<tr>";
 echo "<td>" . htmlentities($list['title']) . "</td>";
@@ -66,8 +68,8 @@ echo "</tbody>";
 echo "</table>";
 
 ?>
-</div>
-    <!-- Modal -->
+    </div>
+    <!-- Meal idea modal -->
     <form method="post" action="handler.php">
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog">
@@ -129,11 +131,6 @@ echo "</table>";
     </div>
     </form>
 </div>
-
-
-
-
-
 
 <?php 
     include('footer.php'); 

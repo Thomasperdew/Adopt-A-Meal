@@ -2,7 +2,7 @@
     session_start();
     require_once 'Dao.php';
     $dao = new Dao();
-    $dates = $dao->getVolunteerDates();
+    $dates = $dao->getVolunteerDates(); //Grab all available volunteer dates
 ?>
 
 <html>
@@ -36,7 +36,7 @@
     <p>Select a date to Adopt A Meal</p>
 </div>
 
-
+<!--Display all success messages to page -->
 <?php if (isset($_SESSION['messageSuccess'])) {
         foreach ($_SESSION['messageSuccess'] as $message) {?>
             <div class="messageSuccess <?php echo isset($_SESSION['validated']) ? $_SESSION['validated'] : '';?>"><?php
@@ -46,6 +46,7 @@
         ?> </div>
 <?php } ?>
 
+<!--Display all error messages to page -->
 <?php if (isset($_SESSION['messages'])) {
     foreach ($_SESSION['messages'] as $message) {?>
         <div class="message <?php echo isset($_SESSION['validated']) ? $_SESSION['validated'] : '';?>"><?php
@@ -53,8 +54,9 @@
     <?php  }
     unset($_SESSION['messages']);
     ?> </div>
-    <?php } ?>
+<?php } ?>
 
+<!--Sets up and display list of available volunteers dates along with button to volunteer for date -->
 <h1>Available Volunteer Dates</h1>
 <?php
 echo "<table id='' class= 'display'>
@@ -65,9 +67,11 @@ echo "<table id='' class= 'display'>
     </tr>
 </thead>";
 echo "<tbody>";
+//Loops through all available dates to display in table
 foreach ($dates as $date){
         echo "<tr>";
         echo "<td>" . htmlentities($date['date']) . "</td>";
+        //Add volunteer button that will activate form modal. Sets data-id to id of date for volunteering purposes
         echo "<td>
             <button class='volunteer' data-id='".$date['id']."'>Volunteer</button>
             </td>";
@@ -77,7 +81,7 @@ echo "</tbody>";
 echo "</table>";
 ?>
 
-  <!-- Volunteer request modal -->
+  <!-- Volunteer request modal. Posts to volunteerHandler.php -->
   <div class="modalContainer" id="volunteerModal">
         <form method="POST" action="volunteerHandler.php" class="formModal" id="volMod">
             <h1>Volunteer To Adopt A Meal!</h1>
@@ -100,6 +104,7 @@ echo "</table>";
             <label for="paper_goods"><b>Supplying Paper Goods?</b></label>
             <input type="checkbox" id="paper" name="paper"><br>
 
+            <!-- Hidden value to grab id of date that user is volunteering for so request will post with correct date-->
             <input type="hidden" name="id" value=""/>
             <button class="btn btn-danger" type="submit">Volunteer</button>
             <button type="reset" class="btn cancel" onclick="closeVolunteerModal()">Close</button>

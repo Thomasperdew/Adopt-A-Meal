@@ -18,6 +18,7 @@ if ($bad) {
     exit;
 }
 
+// Got here, means everything validated and permissions will be changed
 $dao->changePermission($id);
 $_SESSION['messageSuccess'][] = "Admins permissions successfully updated!";
 $send_to =  $dao->getEmails();
